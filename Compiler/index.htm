@@ -1,0 +1,290 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="js/xregexp-min.js"></script>
+    <script type="text/javascript" src="game.js"></script>
+    <link rel="stylesheet" href="js/jjmenu.css" />
+    <link rel="stylesheet" href="bootstrap.css" />
+    <style>
+      body {
+        padding-top: 60px; /* for fixed navbar */
+      }
+    </style>
+    <link rel="stylesheet" href="bootstrap-responsive.css" />
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jjmenu.js"></script>
+    <link id="styleLink" runat="server" rel="Stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="jquery-ui-1.8.16.custom.css" />
+    <title>Game (Mobile)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <script>
+        function onBodyLoad() {
+            init();
+        }
+
+        function onDeviceReady() {
+            init();
+        }
+
+        var currentTab = "tbGame";
+
+        function tabSelected(tab) {
+            try {
+                if (tab != currentTab) {
+                    var olddiv = divNameForTab(currentTab);
+                    var newdiv = divNameForTab(tab);
+                    currentTab = tab;
+                    if (tab != "tbGame") {
+                        $("#gameContent").css("visibility", "hidden");
+                    }
+                    newdiv.show();
+                    if (tab == "tbGame") {
+                        $('html, body').animate({ scrollTop: $(document).height() }, 10);
+                    }
+                    else {
+                        $('html, body').animate({ scrollTop: 0 }, 10);
+                    }
+                    olddiv.hide();
+                    $("#gameOptions").hide();
+                    if (tab == "tbGame") {
+                        setTimeout(function () {
+                            $("#gameContent").css("visibility", "visible");
+                        }, 50);
+                    }
+                }
+            }
+            catch (err) {
+                reportError("Failed to switch tab: " + err);
+            }
+        }
+
+        function divNameForTab(tab) {
+            switch (tab) {
+                case "tbGame":
+                    return $("#gameContent");
+                case "tbInventory":
+                    return $("#gamePanes");
+                case "tbObjects":
+                    return $("#gameObjects");
+                case "tbExits":
+                    return $("#gameExits");
+                case "tbMore":
+                    return $("#gameMore");
+            }
+        }
+
+        function returnToGameTab() {
+            tabSelected("tbGame");
+        }
+    </script>
+</head>
+    <body onkeydown="globalKey(event);" onload="onBodyLoad();">
+        <div id="header" class="navbar navbar-fixed-top">
+          <div class="navbar-inner">
+            <div class="container">
+              <div class="navbar-text pull-right">
+                <a href="#gameMore" class="btn btn-mini" data-toggle="modal"><i class="icon-tasks"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="wrapper">
+            <div id="scroller">
+                <form id="playerform" runat="server" defaultbutton="cmdSubmit">
+                    <div id="gameBorder">
+                        <!--
+                            //%%TEXTADVENTURE PROFILE
+                            -->
+                        <div id="gamePanes" style="display: none">
+                            <div id="gamePanesRunning">
+                                <h2 id="inventoryLabel" class="paneHeader">$$TAB_INVENTORY$$</h2>
+                                <p id="inventoryEmpty" class="emptyListLabel">$$TEXT_EMPTY$$</p>
+                                <ul class="elementList" id="inventoryList"></ul>
+                                <h2 id="statusLabel" class="paneHeader">$$TEXT_STATUS$$</h2>
+                                <div id="statusVars"></div>
+                            </div>
+                            <div id="gamePanesFinished">
+                                <h2>
+                                    Game Over</h2>
+                                <p>
+                                    This game has finished.</p>
+                            </div>
+                        </div>
+                        <div id="gameObjects" style="display: none">
+                            <h2 id="placesObjectsLabel" class="paneHeader">$$TAB_OBJECTS$$</h2>
+                            <p id="placesObjectsEmpty" class="emptyListLabel">$$TEXT_NONE$$</p>
+                            <ul class="elementList" id="objectsList"></ul>
+                        </div>
+                        <div id="gameExits" style="display: none">
+                            <h2 id="compassLabel" class="paneHeader">$$TAB_EXITS$$</h2>
+                            <table id="compassTable" style="margin-left:auto; margin-right:auto;">
+                                <tr>
+                                    <td>
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <input id="cmdCompassNW" class="compassbutton compassbutton_nw" type="button" title="go northwest"
+                                                           onclick="compassClick(_compassDirs[0]);" />
+                                                </td>
+                                                <td>
+                                                    <input id="cmdCompassN" class="compassbutton compassbutton_n" type="button" title="go north"
+                                                           onclick="compassClick(_compassDirs[1]);" />
+                                                </td>
+                                                <td>
+                                                    <input id="cmdCompassNE" class="compassbutton compassbutton_ne" type="button" title="go northeast"
+                                                           onclick="compassClick(_compassDirs[2]);" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input id="cmdCompassW" class="compassbutton compassbutton_w" type="button" title="go west"
+                                                           onclick="compassClick(_compassDirs[3]);" />
+                                                </td>
+                                                <td>
+                                                    &nbsp;
+                                                </td>
+                                                <td>
+                                                    <input id="cmdCompassE" class="compassbutton compassbutton_e" type="button" title="go east"
+                                                           onclick="compassClick(_compassDirs[4]);" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input id="cmdCompassSW" class="compassbutton compassbutton_sw" type="button" title="go southwest"
+                                                           onclick="compassClick(_compassDirs[5]);" />
+                                                </td>
+                                                <td>
+                                                    <input id="cmdCompassS" class="compassbutton compassbutton_s" type="button" title="go south"
+                                                           onclick="compassClick(_compassDirs[6]);" />
+                                                </td>
+                                                <td>
+                                                    <input id="cmdCompassSE" class="compassbutton compassbutton_se" type="button" title="go southeast"
+                                                           onclick="compassClick(_compassDirs[7]);" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <input id="cmdCompassU" class="compassbutton compassbutton_up" type="button" title="go up"
+                                                           onclick="compassClick(_compassDirs[8]);" />
+                                                </td>
+                                                <td>
+                                                    <input id="cmdCompassIn" class="compassbutton compassbutton_in" type="button" value="in" title="go in"
+                                                           onclick="compassClick(_compassDirs[10]);" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input id="cmdCompassD" class="compassbutton compassbutton_down" type="button" title="go down"
+                                                           onclick="compassClick(_compassDirs[9]);" />
+                                                </td>
+                                                <td>
+                                                    <input id="cmdCompassOut" class="compassbutton compassbutton_out" type="button" value="out" title="go out"
+                                                           onclick="compassClick(_compassDirs[11]);" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <!--
+                            //%%END TEXTADVENTURE PROFILE
+                            -->
+                        <div id="gameMore" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div id="moreContent" class="modal-header">
+                                <!-- <button class="btn" id="button-options" type="button">$$BUTTON_OPTIONS$$</button> -->
+                                <button class="btn" id="button-restart" type="button">$$BUTTON_RESTART$$</button>
+                                <!--
+                                //%%TEXTADVENTURE PROFILE
+                                -->
+                                <button class="btn" id="button-undo" type="button">$$BUTTON_UNDO$$</button>
+                                <button class="btn" id="button-wait" type="button">$$BUTTON_WAIT$$</button>
+                                <!--
+                                //%%END TEXTADVENTURE PROFILE
+                                -->
+                            </div>
+                            <div class="modal-body">
+                                
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#gameMoreAbout" data-toggle="tab">About</a></li>
+                                    <li><a href="#gameMoreGames" data-toggle="tab">More Games</a></li>
+                                    <li><a href="#gameMoreCreate" data-toggle="tab"><b>Write!</b></a></li>
+                                </ul>
+
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="gameMoreAbout">
+                                        <p><i>$$GAMENAME$$</i> (version $$VERSION$$, build $$BUILD$$)</p>
+                                        <p>Written by $$AUTHOR$$ using <a onclick="extLink('http://textadventures.co.uk/quest/?src=app$$PRODUCTID$$')" href='#'>Quest</a>.</p>
+                                        <p><small>Copyright &copy; 2013 $$AUTHOR$$ / Text Adventures Ltd</small></p>
+                                        <p><a class="btn btn-small" href="mailto:apphelp@textadventures.co.uk?subject=Problem with $$GAMENAME$$ ($$VERSION$$-$$BUILD$$[$$PROFILE$$])">Report a problem</a></p>
+                                    </div>
+
+                                    <div class="tab-pane" id="gameMoreGames" style="text-align: center">
+                                        <p style="margin:0;padding:0"><a class="btn btn-success btn-large" onclick="extLink('http://textadventures.co.uk/?src=app$$PRODUCTID$$')" href="#"><i class="icon-play icon-white"></i> Play more games online</a></p>
+                                        <p style="margin-top:12px;padding:0"><a onclick="extLink('http://textadventures.co.uk/?src=app$$PRODUCTID$$')" href="#"><img src="images/ta-logo.png" width="300px" /></a></p>
+                                    </div>
+                                    <div class="tab-pane" id="gameMoreCreate" style="text-align: center">
+                                        <p style="margin:0;padding:0"><a onclick="extLink('http://textadventures.co.uk/quest/?src=app$$PRODUCTID$$')" href="#"><img src="images/quest.png" width="200px" /></a></p>
+                                        <p style="margin-top:12px;padding:0"><a class="btn btn-primary btn-large" onclick="extLink('http://textadventures.co.uk/quest/?src=app$$PRODUCTID$$-create')" href="#"><i class="icon-pencil icon-white"></i> Write your own game</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                            </div>
+                        </div>
+                        <div id="gameOptions" style="display: none">
+                            <h2 id="optionsLabel" class="paneHeader">Options</h2>
+                            <div id="optionsContent">
+                                <p>
+                                    Font:
+                                    <select id="fontOptions" class="optionsList">
+                                    </select>
+                                </p>
+                                <p>
+                                    Font size:
+                                    <select id="fontSize" class="optionsList">
+                                        <option value="11">Small</option>
+                                        <option value="14">Large</option>
+                                        <option value="18">Very large</option>
+                                    </select>
+                                </p>
+                                <p id="fontSample">Sample Text</p>
+                                <p><button id="button-close-options" type="button">Close</button></p>
+                            </div>
+                        </div>
+                        <div id="gameContent">
+                            <div id="divOutput">
+                            </div>
+                            <div id="divCommand">
+                                <table id="inputBar">
+                                    <tr>
+                                        <td>
+                                            <input type="text" id="txtCommand" onkeydown="return commandKey(event);" placeholder="$$TEXT_INPUTPLACEHOLDER$$"
+                                                autocorrect="off" autocapitalize="off" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div id="dialog" title="Menu">
+                    <p id="dialogCaption"></p>
+                    <select id="dialogOptions" size="3"></select>
+                </div>
+                <div id="msgbox" title="Question">
+                    <p id="msgboxCaption"></p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,190 @@
+﻿/*
+TO DO: Could also use conditional CSS here, then could use the same CSS file for WebPlayer
+See http://developer.apple.com/library/safari/#codinghowtos/Mobile/UserExperience/_index.html
+*/
+
+body
+{
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0px;
+    background: $$BACKGROUND$$;
+}
+a.cmdlink
+{
+    text-decoration: underline;
+    color: Blue;
+    cursor: pointer;
+}
+a.cmdlink.disabled
+{
+    text-decoration: inherit;
+    color: inherit !important;
+    cursor: inherit;
+}
+h2
+{
+    font-size: 110%;
+}
+div#gameBorder
+{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+}
+div#gamePanes
+{
+    padding-bottom: 10px;
+    background: white;
+}
+div#status
+{
+    background: #E0E0FF;
+    height: 20px;
+    position: fixed;
+    top: 0px;
+    z-index: 100;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 14pt;
+    padding: 2px;
+}
+#dialog
+{
+    display: none;
+}
+#msgbox
+{
+    display: none;
+}
+.compassbutton
+{
+    margin-right: 0;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    vertical-align: middle;
+    background-position:center;
+}
+#statusVars
+{
+    display: none;
+    font-size: 80%;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+.emptyListLabel
+{
+    font-size: 80%;
+    padding-left: 10px;
+}
+#gamePanesFinished
+{
+    display: none;
+}
+div#divOutput
+{
+    padding: 4px;
+    margin: 0px;
+}
+#compassTable
+{
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+#txtCommand
+{
+    width: 100%;
+    margin-left: 0px;
+    font-size: 14pt;
+}
+div#gameObjects
+{
+    padding-bottom: 10px;
+    background: white;
+}
+div#gameExits
+{
+    background: white;
+}
+div#gameMore
+{
+    background: white;
+}
+div#gameOptions
+{
+    background: white;
+    text-align: center;
+}
+select#selectOptions
+{
+    font-size: 120%;
+}
+ul.elementList
+{
+    list-style: none;
+    padding: 0;
+    border: 1px solid #ccc;
+    margin: 0px 16px 16px 16px;
+}
+ul.elementList li
+{
+    display: block;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#fdfdfd),to(#eee));
+    border-bottom: 1px solid #ccc;
+    padding: 10px 10px 10px 20px;
+}
+li.elementListHover
+{
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#fdfdff),to(#aaaaff)) !important;
+}
+li.last-child
+{
+    border-bottom: 0 !important;
+}
+h2.paneHeader 
+{
+    font-size: 16px;
+    text-align: center;
+    color: White;
+    background: black;
+    display: block;
+    margin: 0px 0px 10px 0px;
+    padding: 10px;
+}
+div#aboutContent
+{
+    padding: 0px 10px 10px 10px;
+    font-size: 80%;
+}
+img
+{
+    max-width: 100%;
+    display: block;
+    margin: 0 auto;
+}
+select.optionsList
+{
+    font-size: 20px;
+}
+div#tabButton
+{
+    font-size: 25px;
+}
+table#inputBar
+{
+    width: 100%;
+}
+td#inputBarButtons
+{
+    width: 35px;
+}
+input[type="text"] {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}

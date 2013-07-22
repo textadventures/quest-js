@@ -1,0 +1,46 @@
+﻿<Window x:Class="QuestCompiler.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Quest JS Compiler" Height="350" Width="800"
+        TextOptions.TextFormattingMode="Display" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Closing="Window_Closing" Icon="/QuestCompiler;component/Images/q2_48x48c.ico">
+    <Window.TaskbarItemInfo>
+        <TaskbarItemInfo/>
+    </Window.TaskbarItemInfo>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition/>
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Grid.Column="0">Settings:</Label>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
+            <Button Name="cmdLoadSettings" Margin="5" Padding="10,3,10,3" Click="cmdLoadSettings_Click">Load</Button>
+            <Button Name="cmdSaveSettings" Margin="5" Padding="10,3,10,3" Click="cmdSaveSettings_Click">Save</Button>
+        </StackPanel>
+        <Label Grid.Row="1" Grid.Column="0">Source:</Label>
+        <TextBox Name="txtSource" Grid.Row="1" Grid.Column="1" Margin="5" />
+        <Button Name="cmdBrowseSource" Grid.Row="1" Grid.Column="2" Margin="5" Padding="10,3,10,3" Click="cmdBrowseSource_Click">Browse</Button>
+        <Label Grid.Row="2" Grid.Column="0">Destination:</Label>
+        <TextBox Name="txtDestination" Grid.Row="2" Grid.Column="1" Margin="5" />
+        <Button Name="cmdBrowseDestination" Grid.Row="2" Grid.Column="2" Margin="5" Padding="10,3,10,3" Click="cmdBrowseDestination_Click">Browse</Button>
+        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1" >
+            <Label>Profile:</Label>
+            <ComboBox Name="cmbProfile" Padding="6,4,6,4"></ComboBox>
+            <CheckBox Name="chkDebug" Margin="5" IsChecked="True">Debug mode</CheckBox>
+            <CheckBox Name="chkMinify" Margin="5" IsChecked="True">Minify</CheckBox>
+            <CheckBox Name="chkGamebook" Margin="5" IsChecked="False">Gamebook</CheckBox>
+        </StackPanel>
+        <Button Name="cmdCompile" Grid.Row="4" Grid.Column="1" Margin="5" Padding="10,3,10,3" Click="cmdCompile_Click">Compile</Button>
+        <TextBox Name="txtOutput" Grid.Row="5" Grid.ColumnSpan="3" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" IsReadOnly="True" />
+        <ProgressBar Name="progress" Grid.Row="6" Height="20" Grid.ColumnSpan="3" Margin="10" Visibility="Collapsed" />
+    </Grid>
+</Window>

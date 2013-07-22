@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{64131651-5158-493D-A1CF-27C7575F2653}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TextAdventures.Quest</RootNamespace>
+    <AssemblyName>Compiler</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxMinLibrary">
+      <HintPath>..\packages\AjaxMin.4.64.4630.17932\lib\net40\AjaxMinLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.Zip.Reduced">
+      <HintPath>..\Dependencies\Ionic.Zip.Reduced.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Compiler.cs" />
+    <Compile Include="Element.cs" />
+    <Compile Include="ElementFactory.cs" />
+    <Compile Include="Expression.cs" />
+    <Compile Include="Fields.cs" />
+    <Compile Include="GameLoader\AttributeLoaders.cs" />
+    <Compile Include="GameLoader\ElementLoaders.cs" />
+    <Compile Include="GameLoader\ElementNameMapper.cs" />
+    <Compile Include="GameLoader\ExtendedAttributeLoaders.cs" />
+    <Compile Include="GameLoader\GameLoader.cs" />
+    <Compile Include="GameLoader\PackageReader.cs" />
+    <Compile Include="GameSaver\FieldSaver.cs" />
+    <Compile Include="GameSaver\FunctionSaver.cs" />
+    <Compile Include="GameSaver\GameSaver.cs" />
+    <Compile Include="GameSaver\GameWriter.cs" />
+    <Compile Include="GameSaver\ElementSavers.cs" />
+    <Compile Include="GameSaver\WalkthroughSaver.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuestDictionary.cs" />
+    <Compile Include="QuestList.cs" />
+    <Compile Include="ScriptFactory.cs" />
+    <Compile Include="Scripts\AskScript.cs" />
+    <Compile Include="Scripts\Context.cs" />
+    <Compile Include="Scripts\CreateScript.cs" />
+    <Compile Include="Scripts\DelegateImplementation.cs" />
+    <Compile Include="Scripts\DestroyScript.cs" />
+    <Compile Include="Scripts\DictionaryAddScript.cs" />
+    <Compile Include="Scripts\DoScript.cs" />
+    <Compile Include="Scripts\ErrorScript.cs" />
+    <Compile Include="Scripts\FinishScript.cs" />
+    <Compile Include="Scripts\FirstTimeScript.cs" />
+    <Compile Include="Scripts\ForEachScript.cs" />
+    <Compile Include="Scripts\ForScript.cs" />
+    <Compile Include="Scripts\FunctionCallParameters.cs" />
+    <Compile Include="Scripts\FunctionCallScript.cs" />
+    <Compile Include="Scripts\GetInputScript.cs" />
+    <Compile Include="Scripts\IfScript.cs" />
+    <Compile Include="Scripts\InsertScript.cs" />
+    <Compile Include="Scripts\InvokeScript.cs" />
+    <Compile Include="Scripts\IScript.cs" />
+    <Compile Include="Scripts\JSScript.cs" />
+    <Compile Include="Scripts\ListAddScript.cs" />
+    <Compile Include="Scripts\MsgScript.cs" />
+    <Compile Include="Scripts\MultiScript.cs" />
+    <Compile Include="Scripts\OnReadyScript.cs" />
+    <Compile Include="Scripts\PictureScript.cs" />
+    <Compile Include="Scripts\PlaySoundScript.cs" />
+    <Compile Include="Scripts\RequestScript.cs" />
+    <Compile Include="Scripts\ReturnScript.cs" />
+    <Compile Include="Scripts\RunDelegateScript.cs" />
+    <Compile Include="Scripts\ScriptConstructorBase.cs" />
+    <Compile Include="Scripts\SetFieldScript.cs" />
+    <Compile Include="Scripts\SetScript.cs" />
+    <Compile Include="Scripts\ShowMenuScript.cs" />
+    <Compile Include="Scripts\SwitchScript.cs" />
+    <Compile Include="Scripts\UndoScript.cs" />
+    <Compile Include="Scripts\WaitScript.cs" />
+    <Compile Include="Scripts\WhileScript.cs" />
+    <Compile Include="Utility.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bootstrap-responsive.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="bootstrap.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="game.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\glyphicons-halflings-white.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\glyphicons-halflings.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\quest.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\ta-logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\ui-bg_diagonals-thick_18_b81900_40x40.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\ui-bg_diagonals-thick_20_666666_40x40.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\ui-bg_flat_10_000000_40x100.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\ui-bg_glass_100_f6f6f6_1x400.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\ui-bg_glass_100_fdf5ce_1x400.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\ui-bg_glass_65_ffffff_1x400.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\ui-bg_gloss-wave_35_f6a828_500x100.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\ui-bg_highlight-soft_100_eeeeee_1x100.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\ui-bg_highlight-soft_75_ffe45c_1x100.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\ui-icons_222222_256x240.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\ui-icons_228ef1_256x240.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\ui-icons_ef8c08_256x240.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\ui-icons_ffd27a_256x240.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\ui-icons_ffffff_256x240.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="index.htm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="jquery-ui-1.8.16.custom.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="js\bootstrap.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="js\jjmenu.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="js\jjmenu.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="js\jquery-ui-1.8.16.custom.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="js\jquery.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="js\xregexp-min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="style.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Utility\Utility.csproj">
+      <Project>{0e926905-f750-49f9-aebd-ce14b2b231d8}</Project>
+      <Name>Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
