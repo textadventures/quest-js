@@ -238,32 +238,12 @@ namespace TextAdventures.Quest
 
         private string GetTemplateAttribute(XmlReader reader, string attribute)
         {
-            return GetTemplate(reader.GetAttribute(attribute));
+            return reader.GetAttribute(attribute);
         }
 
         private string GetTemplateContents(XmlReader reader)
         {
-            return GetTemplate(reader.ReadElementContentAsString());
-        }
-
-        private string GetTemplate(string text)
-        {
-            if (text == null) return null;
-
-            while (m_templateRegex.IsMatch(text))
-            {
-                string templateName = m_templateRegex.Match(text).Groups["name"].Value;
-                // TO DO
-                throw new NotImplementedException();
-                //string templateValue = m_worldModel.Template.GetText(templateName);
-                //if (templateValue == null)
-                //{
-                //    AddError(string.Format("Undefined template '{0}'", templateName));
-                //    return null;
-                //}
-                //text = m_templateRegex.Replace(text, templateValue, 1);
-            }
-            return text;
+            return reader.ReadElementContentAsString();
         }
 
         private void ResolveGame()

@@ -272,8 +272,7 @@ namespace TextAdventures.Quest
 
             public override void SetText(string text, ref Element current)
             {
-                string contents = GameLoader.GetTemplate(text);
-                current.Fields[FieldDefinitions.DefaultText] = contents;
+                current.Fields[FieldDefinitions.DefaultText] = text;
             }
         }
 
