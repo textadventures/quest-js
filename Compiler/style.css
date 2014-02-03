@@ -99,6 +99,7 @@ div#divOutput
     width: 100%;
     margin-left: 0px;
     font-size: 14pt;
+    height: inherit;
 }
 div#gameObjects
 {
