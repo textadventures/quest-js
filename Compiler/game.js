@@ -1883,8 +1883,12 @@ function runscriptattribute3(object, attribute, parameters) {
     fn.call(object, parameters);
 }
 
-function invoke(script) {
-    script();
+function invoke(script, parameters) {
+    if (parameters) {
+        script.apply(null, [parameters["result"]]);
+    } else {
+        script();
+    }
 }
 
 function error(message) {

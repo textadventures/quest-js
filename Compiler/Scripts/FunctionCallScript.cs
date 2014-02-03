@@ -106,7 +106,7 @@ namespace TextAdventures.Quest.Scripts
 
             if (m_paramFunction != null)
             {
-                saveParameters.Add(string.Format("function () {{ {0} }}", m_paramFunction.Save()));
+                saveParameters.Add(string.Format("function (result) {{ {0} }}", m_paramFunction.Save()));
             }
 
             return SaveScript(m_procedure, saveParameters.ToArray());
