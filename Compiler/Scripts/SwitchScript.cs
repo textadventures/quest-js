@@ -17,7 +17,7 @@ namespace TextAdventures.Quest.Scripts
             string afterExpr;
             string param = Utility.GetParameter(script, out afterExpr);
             IScript defaultScript;
-            Dictionary<IFunction, IScript> cases = ProcessCases(Utility.GetScript(afterExpr), out defaultScript, proc);
+            var cases = ProcessCases(Utility.GetScript(afterExpr), out defaultScript, proc);
 
             return new SwitchScript(new Expression(param, GameLoader), cases, defaultScript);
         }
@@ -26,12 +26,12 @@ namespace TextAdventures.Quest.Scripts
 
         public GameLoader GameLoader { get; set; }
 
-        private Dictionary<IFunction, IScript> ProcessCases(string cases, out IScript defaultScript, Element proc)
+        private List<Tuple<List<IFunction>, IScript>> ProcessCases(string cases, out IScript defaultScript, Element proc)
         {
             bool finished = false;
             string remainingCases;
             string afterExpr;
-            Dictionary<IFunction, IScript> result = new Dictionary<IFunction, IScript>();
+            var result = new List<Tuple<List<IFunction>, IScript>>();
             defaultScript = null;
 
             cases = Utility.RemoveSurroundingBraces(cases);
@@ -49,7 +49,10 @@ namespace TextAdventures.Quest.Scripts
                         string caseScript = Utility.GetScript(afterExpr);
                         IScript script = ScriptFactory.CreateScript(caseScript, proc);
 
-                        result.Add(new Expression(expr, GameLoader), script);
+                        var matchList = Utility.SplitParameter(expr);
+                        var expressions = matchList.Select(match => new Expression(match, GameLoader)).Cast<IFunction>().ToList();
+
+                        result.Add(Tuple.Create(expressions, script));
                     }
                     else if (cases.StartsWith("default"))
                     {
@@ -75,7 +78,7 @@ namespace TextAdventures.Quest.Scripts
         private SwitchCases m_cases;
         private IScript m_default;
 
-        public SwitchScript(IFunction expression, Dictionary<IFunction, IScript> cases, IScript defaultScript)
+        public SwitchScript(IFunction expression, List<Tuple<List<IFunction>, IScript>> cases, IScript defaultScript)
             : this(expression, defaultScript)
         {
             m_cases = new SwitchCases(this, cases);
@@ -98,33 +101,23 @@ namespace TextAdventures.Quest.Scripts
 
         private class SwitchCases
         {
-            private Dictionary<IFunction, IScript> m_cases = new Dictionary<IFunction, IScript>();
-            private SwitchScript m_parent;
+            private List<Tuple<List<IFunction>, IScript>> m_cases;
 
-            public SwitchCases(SwitchScript parent, Dictionary<IFunction, IScript> cases)
-                : this(parent)
+            public SwitchCases(SwitchScript parent, List<Tuple<List<IFunction>, IScript>> cases)
             {
-
-                foreach (var switchCase in cases)
-                {
-                    IFunction expression = switchCase.Key;
-                    IScript script = switchCase.Value;
-
-                    m_cases.Add(expression, script);
-                }
-            }
-
-            private SwitchCases(SwitchScript parent)
-            {
-                m_parent = parent;
+                m_cases = cases;
             }
 
             public string Save()
             {
                 string result = string.Empty;
-                foreach (KeyValuePair<IFunction, IScript> caseItem in m_cases)
+                foreach (var caseItem in m_cases)
                 {
-                    result += string.Format("case {0}:\n{1}\nbreak;\n", caseItem.Key.Save(), caseItem.Value.Save());
+                    foreach (var expression in caseItem.Item1)
+                    {
+                        result += string.Format("case {0}:\n", expression.Save());
+                    }
+                    result += string.Format("{0}\nbreak;\n", caseItem.Item2.Save());
                 }
                 return result;
             }
