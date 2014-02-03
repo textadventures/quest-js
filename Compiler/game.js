@@ -1025,13 +1025,8 @@ function setBackground(col) {
 }
 
 function ASLEvent(event, parameter) {
-    // using setTimeout here to work around a double-submission race condition which seems to only affect Firefox,
-    // even though we use "return false" to suppress submission of the form with the Enter key.
-    window.setTimeout(function () {
-        // TO DO
-        //$("#fldUIMsg").val("event " + event + ";" + parameter);
-        //$("#cmdSubmit").click();
-    }, 100);
+    var fn = window[event];
+    fn.apply(null, [parameter]);
 }
 
 function disableMainScrollbar() {
@@ -2247,6 +2242,14 @@ function NewStringDictionary() {
 
 function ToString(value) {
     return value.toString();
+}
+
+function ToInt(value) {
+    return parseInt(value);
+}
+
+function ToDouble(value) {
+    return parseFloat(value);
 }
 
 function Join(array, separator) {
