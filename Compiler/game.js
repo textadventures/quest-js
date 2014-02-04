@@ -2762,6 +2762,10 @@ function DoesInherit(obj, type) {
     return ListContains(obj._types, type);
 }
 
+function Floor(n) {
+    return Math.floor(n);
+}
+
 var templates = new Object();
 var dynamicTemplates = new Object();
 var allObjects = new Array();
