@@ -18,6 +18,19 @@ namespace TextAdventures.Quest
 
     public class Compiler
     {
+        private readonly string _resourcesFolder;
+
+        public Compiler()
+        {
+            _resourcesFolder = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().CodeBase);
+            _resourcesFolder = TextAdventures.Utility.Utility.RemoveFileColonPrefix(_resourcesFolder);
+        }
+
+        public Compiler(string resourcesFolder)
+        {
+            _resourcesFolder = resourcesFolder;
+        }
+
         public class CompilerResults : EventArgs
         {
             public bool Success { get; set; }
@@ -151,13 +164,11 @@ namespace TextAdventures.Quest
 
         private string CopyDependenciesToOutputFolder(string outputFolder, Dictionary<string, string> substitutionText, bool debugMode, string profile, bool minify, GameLoader loader, CompileOptions options)
         {
-            string binFolder = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().CodeBase);
-            binFolder = TextAdventures.Utility.Utility.RemoveFileColonPrefix(binFolder);
-            string indexHtm = Copy("index.htm", binFolder, outputFolder, options, loader, substitutionText, debugMode: debugMode, outputFilename: "index.html");
-            Copy("style.css", binFolder, outputFolder, options, loader, substitutionText);
-            Copy("jquery-ui-1.8.16.custom.css", binFolder, outputFolder, options, loader, substitutionText);
-            Copy("game.js", binFolder, outputFolder, options, loader, substitutionText, debugMode);
-            string jsFolder = System.IO.Path.Combine(binFolder, "js");
+            string indexHtm = Copy("index.htm", _resourcesFolder, outputFolder, options, loader, substitutionText, debugMode: debugMode, outputFilename: "index.html");
+            Copy("style.css", _resourcesFolder, outputFolder, options, loader, substitutionText);
+            Copy("jquery-ui-1.8.16.custom.css", _resourcesFolder, outputFolder, options, loader, substitutionText);
+            Copy("game.js", _resourcesFolder, outputFolder, options, loader, substitutionText, debugMode);
+            string jsFolder = System.IO.Path.Combine(_resourcesFolder, "js");
             string outputJsFolder = System.IO.Path.Combine(outputFolder, "js");
             System.IO.Directory.CreateDirectory(outputJsFolder);
             Copy("jquery.min.js", jsFolder, outputJsFolder, options, loader);
@@ -166,8 +177,8 @@ namespace TextAdventures.Quest
             Copy("jjmenu.js", jsFolder, outputJsFolder, options, loader);
             Copy("bootstrap*.js", jsFolder, outputJsFolder, options, loader);
             Copy("*.css", jsFolder, outputJsFolder, options, loader);
-            Copy("bootstrap*.css", binFolder, outputFolder, options, loader, substitutionText);
-            string imagesFolder = System.IO.Path.Combine(binFolder, "images");
+            Copy("bootstrap*.css", _resourcesFolder, outputFolder, options, loader, substitutionText);
+            string imagesFolder = System.IO.Path.Combine(_resourcesFolder, "images");
             string outputImagesFolder = System.IO.Path.Combine(outputFolder, "images");
             System.IO.Directory.CreateDirectory(outputImagesFolder);
             Copy("*.png", imagesFolder, outputImagesFolder, options, loader, binary: true);
