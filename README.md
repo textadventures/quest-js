@@ -1,12 +1,11 @@
-Quest 6
+QuestJS
 =======
 
-Quest 6 is the next version of the [Quest](http://textadventures.co.uk/quest/) text adventure game development platform.
-
-For background, see Alex Warren's post [Some initial thoughts on Quest 6](http://forum.textadventures.co.uk/viewtopic.php?f=15&t=3816)
-
-Right now, the code checked in here is a Windows desktop app which will take in a Quest 5 .quest file
+QuestJS is a Windows desktop app which will take in a Quest 5 .quest file
 and spit out a folder full of HTML, CSS and JS.
+
+This allows any game to be converted into something that will run stand-alone in a web browser. The
+files could also be wrapped with [PhoneGap](http://phonegap.com) to create an app.
 
 Useful links:
 
