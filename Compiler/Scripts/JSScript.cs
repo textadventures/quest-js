@@ -67,9 +67,9 @@ namespace TextAdventures.Quest.Scripts
             m_parameters = parameters;
         }
 
-        public override string Save()
+        public override string Save(Context c)
         {
-            return string.Format("{0} ({1})", m_function, m_parameters == null ? string.Empty : string.Join(", ", m_parameters.Select(p => p.Save())));
+            return string.Format("{0} ({1})", m_function, m_parameters == null ? string.Empty : string.Join(", ", m_parameters.Select(p => p.Save(c))));
         }
     }
 }

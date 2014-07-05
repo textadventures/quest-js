@@ -37,9 +37,9 @@ namespace TextAdventures.Quest.Scripts
             m_function = function;
         }
 
-        public override string Save()
+        public override string Save(Context c)
         {
-            return SaveScript("msg", m_function.Save());
+            return SaveScript("msg", m_function.Save(c));
         }
     }
 }

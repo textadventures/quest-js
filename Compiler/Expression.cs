@@ -6,9 +6,22 @@ using System.Text.RegularExpressions;
 
 namespace TextAdventures.Quest
 {
+    public class Context
+    {
+        private List<string> m_localVariables = new List<string>();
+
+        public void AddLocalVariable(string variable)
+        {
+            if (m_localVariables.Contains(variable)) return;
+            m_localVariables.Add(variable);
+        }
+
+        public List<string> LocalVariables { get { return m_localVariables; } }
+    }
+
     public interface IFunction
     {
-        string Save();
+        string Save(Context c);
     }
 
     public class Expression : IFunction
@@ -23,7 +36,7 @@ namespace TextAdventures.Quest
             if (loader == null) throw new ArgumentNullException();
         }
 
-        public string Save()
+        public string Save(Context c)
         {
             // call utility function, pass in obj names, to convert obj references to object_objectname
             // also needs to remove spaces in object or variable names
@@ -44,7 +57,7 @@ namespace TextAdventures.Quest
             result = Utility.ReplaceRegexMatchesRespectingQuotes(result, new Regex(@"\bnot "), "!", false);
             result = Utility.ReplaceReservedVariableNames(result);
             result = Utility.ReplaceOverloadedFunctionNames(result);
-            result = Utility.ReplaceObjectNames(result, m_gameLoader.ElementNamesRegexes);
+            result = Utility.ReplaceObjectNames(result, m_gameLoader.ElementNamesRegexes, c.LocalVariables);
             result = Utility.ConvertVariableNamesWithSpaces(result);
 
             return result;

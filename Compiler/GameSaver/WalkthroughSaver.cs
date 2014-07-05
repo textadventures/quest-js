@@ -30,7 +30,7 @@ namespace TextAdventures.Quest
                     {
                         string expr = step.Substring(7);
                         Expression expression = new Expression(expr, e.Loader);
-                        result.Add("assert:" + expression.Save());
+                        result.Add("assert:" + expression.Save(new Context()));
                     }
                     else
                     {

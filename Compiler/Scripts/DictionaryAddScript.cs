@@ -40,9 +40,9 @@ namespace TextAdventures.Quest.Scripts
             m_value = value;
         }
 
-        public override string Save()
+        public override string Save(Context c)
         {
-            return SaveScript("dictionaryadd", m_dictionary.Save(), m_key.Save(), m_value.Save());
+            return SaveScript("dictionaryadd", m_dictionary.Save(c), m_key.Save(c), m_value.Save(c));
         }
     }
 
@@ -77,9 +77,9 @@ namespace TextAdventures.Quest.Scripts
             m_key = key;
         }
 
-        public override string Save()
+        public override string Save(Context c)
         {
-            return SaveScript("dictionaryremove", m_dictionary.Save(), m_key.Save());
+            return SaveScript("dictionaryremove", m_dictionary.Save(c), m_key.Save(c));
         }
     }
 }

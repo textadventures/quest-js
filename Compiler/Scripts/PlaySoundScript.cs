@@ -39,9 +39,9 @@ namespace TextAdventures.Quest.Scripts
             m_loop = loop;
         }
 
-        public override string Save()
+        public override string Save(Context c)
         {
-            return SaveScript("playsound", m_filename.Save(), m_synchronous.Save(), m_loop.Save());
+            return SaveScript("playsound", m_filename.Save(c), m_synchronous.Save(c), m_loop.Save(c));
         }
     }
 
@@ -69,7 +69,7 @@ namespace TextAdventures.Quest.Scripts
         {
         }
 
-        public override string Save()
+        public override string Save(Context c)
         {
             return "stopsound();";
         }

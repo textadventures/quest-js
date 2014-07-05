@@ -54,17 +54,17 @@ namespace TextAdventures.Quest.Scripts
             m_otherwiseScript = script;
         }
 
-        public override string Save()
+        public override string Save(Context c)
         {
             string result = "if (!HasAttribute(GetObject(\"game\"), \"_firstTimeScriptsRun\")) set (GetObject(\"game\"), \"_firstTimeScriptsRun\", NewStringList());\n";
             result += string.Format("if ($.inArray(\"{0}\", GetObject(\"game\")._firstTimeScriptsRun) == -1) {{\n", m_id);
             result += string.Format("listadd(GetObject(\"game\")._firstTimeScriptsRun, \"{0}\");\n", m_id);
-            result += m_firstTimeScript.Save();
+            result += m_firstTimeScript.Save(c);
             result += "}\n";
 
             if (m_otherwiseScript != null)
             {
-                result += string.Format("else {{ {0} }}", m_otherwiseScript.Save());
+                result += string.Format("else {{ {0} }}", m_otherwiseScript.Save(c));
             }
 
             return result;

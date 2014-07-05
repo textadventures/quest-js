@@ -29,7 +29,7 @@ namespace TextAdventures.Quest.Scripts
         {
         }
 
-        public override string Save()
+        public override string Save(Context c)
         {
             return "finish();";
         }

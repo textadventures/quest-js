@@ -546,18 +546,20 @@ namespace TextAdventures.Quest
             return result;
         }
 
-        public static string ReplaceObjectNames(string input, List<Tuple<Regex, string>> objectReplaceRegexes)
+        public static string ReplaceObjectNames(string input, IEnumerable<GameLoader.ElementNameReplacer> objectReplaceRegexes, List<string> objectNamesToIgnore)
         {
             string result = input;
             foreach (var objectReplaceRegex in objectReplaceRegexes)
             {
+                if (objectNamesToIgnore.Contains(objectReplaceRegex.ObjectName)) continue;
+
                 result = ReplaceRespectingQuotes(result, false, text => {
-                    return objectReplaceRegex.Item1.Replace(text, match => {
+                    return objectReplaceRegex.Regex.Replace(text, match => {
                         // If match is immediately after a "." character, don't do the replacement as we don't
                         // want to replace attribute names that happen to be the same as object names.
                         if (match.Index == 0 || text.Substring(match.Index - 1, 1) != ".")
                         {
-                            return objectReplaceRegex.Item2;
+                            return objectReplaceRegex.ReplaceWith;
                         }
                         else
                         {

@@ -64,11 +64,11 @@ namespace TextAdventures.Quest.Scripts
             m_step = step;
         }
 
-        public override string Save()
+        public override string Save(Context c)
         {
-            string step = (m_step == null) ? "++" : "+=" + m_step.Save();
-            string result = string.Format("for (var {0} = {1}; {0} <= {2}; {0}{3}) {{\n", m_variable, m_from.Save(), m_to.Save(), step);
-            result += m_loopScript.Save();
+            string step = (m_step == null) ? "++" : "+=" + m_step.Save(c);
+            string result = string.Format("for (var {0} = {1}; {0} <= {2}; {0}{3}) {{\n", m_variable, m_from.Save(c), m_to.Save(c), step);
+            result += m_loopScript.Save(c);
             result += Environment.NewLine + "}";
             return result;
         }

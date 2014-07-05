@@ -49,10 +49,10 @@ namespace TextAdventures.Quest.Scripts
             m_loopScript = loopScript;
         }
 
-        public override string Save()
+        public override string Save(Context c)
         {
             string result = string.Empty;
-            string list = m_list.Save();
+            string list = m_list.Save(c);
             if (list.Contains("("))
             {
                 // if we're iterating over the results of a function, save the results to a variable first
@@ -74,7 +74,7 @@ namespace TextAdventures.Quest.Scripts
             {
                 // Dictionaries contain a dummy key so that TypeOf can tell between a string dictionary and an object dictionary.
                 // We add a condition here so that the dummy key is excluded from a foreach loop.
-                string loopScriptAndCondition = string.Format("if ({0} || iterator_{1}!=\"__dummyKey\") {{ {2} }}", arrayCheckVariable, m_variable, m_loopScript.Save());
+                string loopScriptAndCondition = string.Format("if ({0} || iterator_{1}!=\"__dummyKey\") {{ {2} }}", arrayCheckVariable, m_variable, m_loopScript.Save(c));
                 scriptString += loopScriptAndCondition;
             }
             return result + scriptString + Environment.NewLine + "}";

@@ -49,16 +49,16 @@ namespace TextAdventures.Quest.Scripts
             m_parameters = parameters;
         }
 
-        public override string Save()
+        public override string Save(Context c)
         {
-            string parameters = (m_parameters == null) ? null : m_parameters.Save();
+            string parameters = (m_parameters == null) ? null : m_parameters.Save(c);
             if (!string.IsNullOrEmpty(parameters))
             {
-                return SaveScript("runscriptattribute3", m_obj.Save(), m_action.Save(), m_parameters.Save());
+                return SaveScript("runscriptattribute3", m_obj.Save(c), m_action.Save(c), m_parameters.Save(c));
             }
             else
             {
-                return SaveScript("runscriptattribute2", m_obj.Save(), m_action.Save());
+                return SaveScript("runscriptattribute2", m_obj.Save(c), m_action.Save(c));
             }
         }
     }

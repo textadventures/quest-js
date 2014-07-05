@@ -50,13 +50,13 @@ namespace TextAdventures.Quest.Scripts
             m_callbackScript = callbackScript;
         }
 
-        public override string Save()
+        public override string Save(Context c)
         {
             return string.Format("showmenu_async ({0}, {1}, {2}, function(result) {{ {3} }});",
-                m_caption.Save(),
-                m_options.Save(),
-                m_allowCancel.Save(),
-                m_callbackScript.Save()
+                m_caption.Save(c),
+                m_options.Save(c),
+                m_allowCancel.Save(c),
+                m_callbackScript.Save(c)
             );
         }
     }

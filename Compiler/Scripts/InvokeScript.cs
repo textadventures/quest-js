@@ -47,16 +47,16 @@ namespace TextAdventures.Quest.Scripts
             m_parameters = parameters;
         }
 
-        public override string Save()
+        public override string Save(Context c)
         {
-            string parameters = (m_parameters == null) ? null : m_parameters.Save();
+            string parameters = (m_parameters == null) ? null : m_parameters.Save(c);
             if (string.IsNullOrEmpty(parameters))
             {
-                return SaveScript("invoke", m_script.Save());
+                return SaveScript("invoke", m_script.Save(c));
             }
             else
             {
-                return SaveScript("invoke", m_script.Save(), parameters);
+                return SaveScript("invoke", m_script.Save(c), parameters);
             }
         }
     }

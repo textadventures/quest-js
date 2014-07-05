@@ -90,11 +90,11 @@ namespace TextAdventures.Quest.Scripts
             m_default = defaultScript ?? new MultiScript();
         }
 
-        public override string Save()
+        public override string Save(Context c)
         {
-            string result = string.Format("switch ({0}) {{\n", m_expr.Save());
-            result += m_cases.Save();
-            if (m_default != null && ((MultiScript)m_default).Scripts.Count() > 0) result += "default:\n" + m_default.Save();
+            string result = string.Format("switch ({0}) {{\n", m_expr.Save(c));
+            result += m_cases.Save(c);
+            if (m_default != null && ((MultiScript)m_default).Scripts.Count() > 0) result += "default:\n" + m_default.Save(c);
             result += Environment.NewLine + "}";
             return result;
         }
@@ -108,16 +108,16 @@ namespace TextAdventures.Quest.Scripts
                 m_cases = cases;
             }
 
-            public string Save()
+            public string Save(Context c)
             {
                 string result = string.Empty;
                 foreach (var caseItem in m_cases)
                 {
                     foreach (var expression in caseItem.Item1)
                     {
-                        result += string.Format("case {0}:\n", expression.Save());
+                        result += string.Format("case {0}:\n", expression.Save(c));
                     }
-                    result += string.Format("{0}\nbreak;\n", caseItem.Item2.Save());
+                    result += string.Format("{0}\nbreak;\n", caseItem.Item2.Save(c));
                 }
                 return result;
             }

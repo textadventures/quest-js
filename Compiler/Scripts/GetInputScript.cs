@@ -34,10 +34,10 @@ namespace TextAdventures.Quest.Scripts
             m_callbackScript = callbackScript;
         }
 
-        public override string Save()
+        public override string Save(Context c)
         {
             return string.Format("getinput_async (function(result) {{ {0} }});",
-                m_callbackScript.Save()
+                m_callbackScript.Save(c)
             );
         }
     }

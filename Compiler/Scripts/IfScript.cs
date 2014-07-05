@@ -107,17 +107,17 @@ namespace TextAdventures.Quest.Scripts
             m_elseIfScript.Add(elseIfScript);
         }
 
-        public override string Save()
+        public override string Save(Context c)
         {
-            string result = SaveExpressionScript("if", m_thenScript, m_expression.Save());
+            string result = SaveExpressionScript("if", m_thenScript, c, m_expression.Save(c));
             if (m_elseIfScript != null)
             {
                 foreach (ElseIfScript elseIf in m_elseIfScript)
                 {
-                    result += Environment.NewLine + SaveExpressionScript("else if", elseIf.Script, elseIf.Expression.Save());
+                    result += Environment.NewLine + SaveExpressionScript("else if", elseIf.Script, c, elseIf.Expression.Save(c));
                 }
             }
-            if (m_elseScript != null) result += Environment.NewLine + "else {" + Environment.NewLine + m_elseScript.Save() + Environment.NewLine + "}";
+            if (m_elseScript != null) result += Environment.NewLine + "else {" + Environment.NewLine + m_elseScript.Save(c) + Environment.NewLine + "}";
             return result;
         }
 

@@ -296,23 +296,33 @@ namespace TextAdventures.Quest
             get { return m_elements.Where(e => e.Value.ElemType != ElementType.Function).Select(e => e.Value); }
         }
 
-        private List<Tuple<Regex, string>> m_elementNamesRegexes = null;
+        public class ElementNameReplacer
+        {
+            public Regex Regex { get; set; }
+            public string ReplaceWith { get; set; }
+            public string ObjectName { get; set; }
+        }
 
-        public List<Tuple<Regex, string>> ElementNamesRegexes
+        private List<ElementNameReplacer> m_elementNamesRegexes = null;
+
+        public List<ElementNameReplacer> ElementNamesRegexes
         {
             get
             {
                 if (m_elementNamesRegexes == null)
                 {
-                    m_elementNamesRegexes = new List<Tuple<Regex, string>>();
+                    m_elementNamesRegexes = new List<ElementNameReplacer>();
                     // Order by descending name length, so the longest object names are replaced first.
                     // This works around the case where we have an object called e.g. "object" and "object two",
                     // we don't want "object" to be a match for "object two".
                     foreach (Element e in NonFunctionElements.OrderByDescending(e => e.Name.Length))
                     {
-                        m_elementNamesRegexes.Add(new Tuple<Regex, string>(
-                            new Regex(@"\b(" + e.Name + @")\b"),
-                            NameMapper.GetMappedName(e.Name)));
+                        m_elementNamesRegexes.Add(new ElementNameReplacer
+                        {
+                            Regex = new Regex(@"\b(" + e.Name + @")\b"),
+                            ReplaceWith = NameMapper.GetMappedName(e.Name),
+                            ObjectName = e.Name,
+                        });
                     }
 
                 }

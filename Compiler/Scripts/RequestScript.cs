@@ -47,11 +47,11 @@ namespace TextAdventures.Quest.Scripts
 
         private static Regex s_runScript = new Regex("\"(.*); *\" \\+ (.*)");
 
-        public override string Save()
+        public override string Save(Context c)
         {
             if (m_request == "RunScript")
             {
-                string data = m_data.Save();
+                string data = m_data.Save(c);
                 if (s_runScript.IsMatch(data))
                 {
                     Match result = s_runScript.Match(data);
@@ -82,7 +82,7 @@ namespace TextAdventures.Quest.Scripts
             }
             else
             {
-                return SaveScript("request", string.Format("\"{0}\"", m_request), m_data.Save());
+                return SaveScript("request", string.Format("\"{0}\"", m_request), m_data.Save(c));
             }
         }
     }

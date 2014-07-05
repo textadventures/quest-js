@@ -24,59 +24,59 @@ namespace CompilerTests
         public void TestSave()
         {
             Expression testExpression = new Expression("myexpression", gameLoader.Object);
-            Assert.AreEqual("myexpression", testExpression.Save());
+            Assert.AreEqual("myexpression", testExpression.Save(new Context()));
         }
 
         [TestMethod]
         public void TestNot()
         {
             Expression testExpression = new Expression("not myexpression", gameLoader.Object);
-            Assert.AreEqual("!(myexpression)", testExpression.Save());
+            Assert.AreEqual("!(myexpression)", testExpression.Save(new Context()));
         }
 
         [TestMethod]
         public void TestEquals()
         {
             Expression testExpression = new Expression("one = two", gameLoader.Object);
-            Assert.AreEqual("one == two", testExpression.Save());
+            Assert.AreEqual("one == two", testExpression.Save(new Context()));
         }
 
         [TestMethod]
         public void TestNotEquals()
         {
             Expression testExpression = new Expression("one <> two", gameLoader.Object);
-            Assert.AreEqual("one != two", testExpression.Save());
+            Assert.AreEqual("one != two", testExpression.Save(new Context()));
         }
 
         [TestMethod]
         public void TestGreaterEquals()
         {
             Expression testExpression = new Expression("one >= two", gameLoader.Object);
-            Assert.AreEqual("one >= two", testExpression.Save());
+            Assert.AreEqual("one >= two", testExpression.Save(new Context()));
         }
 
         [TestMethod]
         public void TestReplaceReservedKeywords()
         {
             Expression testExpression = new Expression("one + var", gameLoader.Object);
-            Assert.AreEqual("one + variable_var", testExpression.Save());
+            Assert.AreEqual("one + variable_var", testExpression.Save(new Context()));
         }
 
         [TestMethod]
         public void TestReplaceOverloadedFunctions()
         {
             Expression testExpression = new Expression("TypeOf(value)", gameLoader.Object);
-            Assert.AreEqual("overloadedFunctions.TypeOf(value)", testExpression.Save());
+            Assert.AreEqual("overloadedFunctions.TypeOf(value)", testExpression.Save(new Context()));
 
             Expression testExpression2 = new Expression("(TypeOf(element[attribute]) = \"script\")", gameLoader.Object);
-            Assert.AreEqual("(overloadedFunctions.TypeOf(element[attribute]) == \"script\")", testExpression2.Save());
+            Assert.AreEqual("(overloadedFunctions.TypeOf(element[attribute]) == \"script\")", testExpression2.Save(new Context()));
         }
 
         [TestMethod]
         public void TestSpaceReplacement()
         {
             Expression testExpression = new Expression("object.my attribute", gameLoader.Object);
-            Assert.AreEqual(string.Format("object.my{0}attribute", Utility.SpaceReplacementString), testExpression.Save());
+            Assert.AreEqual(string.Format("object.my{0}attribute", Utility.SpaceReplacementString), testExpression.Save(new Context()));
         }
     }
 }

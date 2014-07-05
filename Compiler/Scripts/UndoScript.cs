@@ -29,7 +29,7 @@ namespace TextAdventures.Quest.Scripts
         {
         }
 
-        public override string Save()
+        public override string Save(Context c)
         {
             return "undo();";
         }
@@ -62,9 +62,9 @@ namespace TextAdventures.Quest.Scripts
             m_command = command;
         }
 
-        public override string Save()
+        public override string Save(Context c)
         {
-            return SaveScript("starttransaction", m_command.Save());
+            return SaveScript("starttransaction", m_command.Save(c));
         }
     }
 }

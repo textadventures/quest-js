@@ -32,9 +32,9 @@ namespace TextAdventures.Quest.Scripts
             m_filename = function;
         }
 
-        public override string Save()
+        public override string Save(Context c)
         {
-            return SaveScript("picture", m_filename.Save());
+            return SaveScript("picture", m_filename.Save(c));
         }
     }
 }

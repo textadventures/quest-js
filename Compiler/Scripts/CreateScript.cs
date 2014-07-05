@@ -32,9 +32,9 @@ namespace TextAdventures.Quest.Scripts
             m_expr = expr;
         }
 
-        public override string Save()
+        public override string Save(Context c)
         {
-            return SaveScript("create", m_expr.Save());
+            return SaveScript("create", m_expr.Save(c));
         }
     }
 
@@ -92,16 +92,16 @@ namespace TextAdventures.Quest.Scripts
             m_id = id;
         }
 
-        public override string Save()
+        public override string Save(Context c)
         {
             if (m_initialType == null)
             {
-                return SaveScript("createexit", m_name.Save(), m_from.Save(), m_to.Save());
+                return SaveScript("createexit", m_name.Save(c), m_from.Save(c), m_to.Save(c));
             }
             else
             {
                 // TODO: Add support for id parameter
-                return SaveScript("createexit_withtype", m_name.Save(), m_from.Save(), m_to.Save(), m_initialType.Save());
+                return SaveScript("createexit_withtype", m_name.Save(c), m_from.Save(c), m_to.Save(c), m_initialType.Save(c));
             }
         }
     }
@@ -133,9 +133,9 @@ namespace TextAdventures.Quest.Scripts
             m_expr = expr;
         }
 
-        public override string Save()
+        public override string Save(Context c)
         {
-            return SaveScript("createtimer", m_expr.Save());
+            return SaveScript("createtimer", m_expr.Save(c));
         }
     }
 
@@ -166,9 +166,9 @@ namespace TextAdventures.Quest.Scripts
             m_expr = expr;
         }
 
-        public override string Save()
+        public override string Save(Context c)
         {
-            return SaveScript("createturnscript", m_expr.Save());
+            return SaveScript("createturnscript", m_expr.Save(c));
         }
     }
 }

@@ -212,7 +212,7 @@ namespace TextAdventures.Quest
             public override void Save(GameWriter writer, Element element, string attribute, object value, bool isFinal)
             {
                 IScript script = (IScript)value;
-                string savedScript = script.Save();
+                string savedScript = script.Save(new Context());
                 if (savedScript.Trim().Length > 0)
                 {
                     // TO DO: Will need to extract variables for parameters to a "useanything" script in the same way
@@ -306,7 +306,7 @@ namespace TextAdventures.Quest
                 // TO DO: "function()" will need to include parameter names
 
                 base.WriteAttribute(writer, element, attribute,
-                    string.Format("function() {{ {0} }}", impl.Implementation.Fields[FieldDefinitions.Script].Save()), isFinal);
+                    string.Format("function() {{ {0} }}", impl.Implementation.Fields[FieldDefinitions.Script].Save(new Context())), isFinal);
             }
         }
 
@@ -319,7 +319,7 @@ namespace TextAdventures.Quest
 
             protected override string ValueSaver(IScript value)
             {
-                return string.Format("function() {{ {0} }}", value == null ? string.Empty : value.Save());
+                return string.Format("function() {{ {0} }}", value == null ? string.Empty : value.Save(new Context()));
             }
         }
 

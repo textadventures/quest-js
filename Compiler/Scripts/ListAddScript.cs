@@ -35,9 +35,9 @@ namespace TextAdventures.Quest.Scripts
             m_value = value;
         }
 
-        public override string Save()
+        public override string Save(Context c)
         {
-            return SaveScript("listadd", m_list.Save(), m_value.Save());
+            return SaveScript("listadd", m_list.Save(c), m_value.Save(c));
         }
     }
 
@@ -70,9 +70,9 @@ namespace TextAdventures.Quest.Scripts
             m_value = value;
         }
 
-        public override string Save()
+        public override string Save(Context c)
         {
-            return SaveScript("listremove", m_list.Save(), m_value.Save());
+            return SaveScript("listremove", m_list.Save(c), m_value.Save(c));
         }
     }
 }

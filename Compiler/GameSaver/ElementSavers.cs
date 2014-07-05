@@ -92,7 +92,7 @@ namespace TextAdventures.Quest
 
         public void Save(Element e, GameWriter writer)
         {
-            string expression = e.Fields[FieldDefinitions.Function].Save();
+            string expression = e.Fields[FieldDefinitions.Function].Save(new Context());
             expression = Utility.ReplaceDynamicTemplateVariableNames(expression);
             writer.AddLine(string.Format("dynamicTemplates.{0} = function(params) {{ return {1}; }};", e.Name, expression));
         }

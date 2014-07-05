@@ -84,7 +84,7 @@ namespace TextAdventures.Quest.Scripts
             m_paramFunction = paramFunction;
         }
 
-        public override string Save()
+        public override string Save(Context c)
         {
             if (!m_loader.Elements.ContainsKey(m_procedure.Replace(Utility.SpaceReplacementString, " ")))
             {
@@ -102,11 +102,11 @@ namespace TextAdventures.Quest.Scripts
                 parameters.Add(p);
             }
 
-            List<string> saveParameters = new List<string>(parameters.Select(p => p.Save()));
+            List<string> saveParameters = new List<string>(parameters.Select(p => p.Save(c)));
 
             if (m_paramFunction != null)
             {
-                saveParameters.Add(string.Format("function (result) {{ {0} }}", m_paramFunction.Save()));
+                saveParameters.Add(string.Format("function (result) {{ {0} }}", m_paramFunction.Save(c)));
             }
 
             return SaveScript(m_procedure, saveParameters.ToArray());

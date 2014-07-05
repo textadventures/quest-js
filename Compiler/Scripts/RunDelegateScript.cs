@@ -63,14 +63,14 @@ namespace TextAdventures.Quest.Scripts
             m_appliesTo = obj;
         }
 
-        public override string Save()
+        public override string Save(Context c)
         {
             List<string> saveParameters = new List<string>();
-            saveParameters.Add(m_appliesTo.Save());
-            saveParameters.Add(m_delegate.Save());
+            saveParameters.Add(m_appliesTo.Save(c));
+            saveParameters.Add(m_delegate.Save(c));
             foreach (IFunction p in m_parameters.Parameters)
             {
-                saveParameters.Add(p.Save());
+                saveParameters.Add(p.Save(c));
             }
 
             return SaveScript("rundelegate", saveParameters.ToArray());

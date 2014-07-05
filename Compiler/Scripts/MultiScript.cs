@@ -46,14 +46,14 @@ namespace TextAdventures.Quest.Scripts
             }
         }
 
-        public override string Save()
+        public override string Save(Context c)
         {
             string result = string.Empty;
 
             foreach (IScript script in m_scripts)
             {
                 if (result.Length > 0) result += Environment.NewLine;
-                result += script.Save();
+                result += script.Save(c);
             }
 
             return result;

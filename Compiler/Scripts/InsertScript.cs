@@ -32,9 +32,9 @@ namespace TextAdventures.Quest.Scripts
             m_filename = filename;
         }
 
-        public override string Save()
+        public override string Save(Context c)
         {
-            return SaveScript("insertHtml", m_filename.Save());
+            return SaveScript("insertHtml", m_filename.Save(c));
         }
     }
 }

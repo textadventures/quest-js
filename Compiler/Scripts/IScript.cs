@@ -8,7 +8,7 @@ namespace TextAdventures.Quest.Scripts
     public interface IScript
     {
         string Line { get; set; }
-        string Save();
+        string Save(Context c);
         string Keyword { get; }
     }
 
@@ -34,7 +34,7 @@ namespace TextAdventures.Quest.Scripts
             return keyword + " (" + String.Join(", ", args) + ");";
         }
 
-        protected string SaveExpressionScript(string keyword, IScript script, params string[] args)
+        protected string SaveExpressionScript(string keyword, IScript script, Context c, params string[] args)
         {
             string result;
             if (args.Length == 0)
@@ -45,13 +45,13 @@ namespace TextAdventures.Quest.Scripts
             {
                 result = keyword + " (" + String.Join(", ", args) + ")";
             }
-            string scriptString = script != null ? script.Save() : string.Empty;
+            string scriptString = script != null ? script.Save(c) : string.Empty;
             return result + " {" + Environment.NewLine + scriptString + Environment.NewLine + "}";
         }
 
         public Element Owner { get; set; }
 
-        public abstract string Save();
+        public abstract string Save(Context c);
 
         public virtual string Line
         {

@@ -39,10 +39,10 @@ namespace TextAdventures.Quest.Scripts
             m_loopScript = loopScript;
         }
 
-        public override string Save()
+        public override string Save(Context c)
         {
-            string result = string.Format("while ({0}) {{\n", m_expression.Save());
-            result += m_loopScript.Save();
+            string result = string.Format("while ({0}) {{\n", m_expression.Save(c));
+            result += m_loopScript.Save(c);
             result += Environment.NewLine + "}";
             return result;
         }

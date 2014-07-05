@@ -107,29 +107,26 @@ namespace TextAdventures.Quest.Scripts
             }
         }
 
-        public override string Save()
+        public override string Save(Context c)
         {
             string result = string.Empty;
 
             if (AppliesTo != null)
             {
-                result = string.Format("set({0}, \"{1}\", {2});", AppliesTo.Save(), Property, GetSaveString());
+                result = string.Format("set({0}, \"{1}\", {2});", AppliesTo.Save(c), Property, GetSaveString(c));
             }
             else
             {
                 string varName = Utility.ReplaceReservedVariableNames(Property);
                 result = "var " + varName;
-                if (m_loader.Elements.ContainsKey(varName))
-                {
-                    m_loader.AddWarning(string.Format("Variable '{0}' clashes with object name", varName));
-                }
-                result += " = " + GetSaveString() + ";";
+                result += " = " + GetSaveString(c) + ";";
+                c.AddLocalVariable(varName);
             }
 
             return result;
         }
 
-        protected abstract string GetSaveString();
+        protected abstract string GetSaveString(Context c);
     }
 
     public class SetExpressionScript : SetScriptBase
@@ -142,9 +139,9 @@ namespace TextAdventures.Quest.Scripts
             m_expr = expr;
         }
 
-        protected override string GetSaveString()
+        protected override string GetSaveString(Context c)
         {
-            return m_expr.Save();
+            return m_expr.Save(c);
         }
     }
 
@@ -160,9 +157,9 @@ namespace TextAdventures.Quest.Scripts
             m_scriptFactory = constructor.ScriptFactory;
         }
 
-        protected override string GetSaveString()
+        protected override string GetSaveString(Context c)
         {
-            return string.Format("function() {{ {0} }}", m_script.Save());
+            return string.Format("function() {{ {0} }}", m_script.Save(c));
         }
     }
 }
