@@ -10,10 +10,13 @@ namespace TextAdventures.Quest
     {
         private List<string> m_localVariables = new List<string>();
 
-        public void AddLocalVariable(string variable)
+        public void AddLocalVariable(params string[] variables)
         {
-            if (m_localVariables.Contains(variable)) return;
-            m_localVariables.Add(variable);
+            foreach (var variable in variables)
+            {
+                if (m_localVariables.Contains(variable)) continue;
+                m_localVariables.Add(variable);
+            }
         }
 
         public List<string> LocalVariables { get { return m_localVariables; } }

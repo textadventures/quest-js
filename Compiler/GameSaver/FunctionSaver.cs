@@ -18,7 +18,9 @@ namespace TextAdventures.Quest
             paramNames = Utility.ReplaceReservedVariableNames(paramNames);
             writer.AddLine("function " + e.Name.Replace(" ", Utility.SpaceReplacementString) + "(" + paramNames + ")");
             writer.AddLine("{");
-            writer.AddLine(e.Fields[FieldDefinitions.Script].Save(new Context()));
+            var context = new Context();
+            context.AddLocalVariable(e.Fields[FieldDefinitions.ParamNames].ToArray());
+            writer.AddLine(e.Fields[FieldDefinitions.Script].Save(context));
             writer.AddLine("}");
         }
     }
