@@ -1103,6 +1103,12 @@ function updateVerbButtons(list, verbsArray, idprefix) {
 }
 var _currentDiv = null;
 
+function setCommandBarStyle(style) {
+    var width = $("#txtCommand").width();
+    $("#txtCommand").attr("style", style);
+    $("#txtCommand").width(width);
+}
+
 function addText(text) {
     if (_currentDiv == null) {
         createNewDiv("left");
