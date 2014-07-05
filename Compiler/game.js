@@ -62,6 +62,23 @@ function init() {
         }
     });
 
+    $(document).on("click", ".exitlink", function () {
+        if (!$(this).hasClass("disabled")) {
+            sendCommand($(this).data("command"));
+        }
+    });
+
+    $(document).on("click", ".commandlink", function () {
+        var $this = $(this);
+        if (!$this.hasClass("disabled") && canSendCommand) {
+            if ($this.data("deactivateonclick")) {
+                $this.addClass("disabled");
+                $this.data("deactivated", true);
+            }
+            sendCommand($this.data("command"));
+        }
+    });
+
     worldmodelInitialise();
     if (!loadGame()) {
         worldModelBeginGame();
