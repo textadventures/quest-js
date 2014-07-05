@@ -163,7 +163,6 @@ namespace TextAdventures.Quest
             if (m_errors.Count == 0)
             {
                 ResolveGame();
-                ValidateGame();
             }
 
             return (m_errors.Count == 0);
@@ -253,20 +252,6 @@ namespace TextAdventures.Quest
             foreach (Element e in m_elements.Values)
             {
                 e.Fields.Resolve(this);
-            }
-        }
-
-        private void ValidateGame()
-        {
-            foreach (Element element in m_elements.Values.Where(e => e.ElemType == ElementType.Function))
-            {
-                foreach (string paramName in element.Fields[FieldDefinitions.ParamNames])
-                {
-                    if (m_elements.ContainsKey(paramName))
-                    {
-                        AddWarning(string.Format("Variable '{0}' clashes with object name", paramName));
-                    }
-                }
             }
         }
 
