@@ -2241,6 +2241,15 @@ function getElement(name) {
     return elementsNameMap[name];
 }
 
+function setGameWidth() {
+}
+
+function setGamePadding() {
+}
+
+function hideBorder() {
+}
+
 // Functions
 
 function NewObjectList() {
