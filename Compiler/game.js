@@ -622,6 +622,7 @@ function saveGameInternal() {
 
         localStorageSet("output", allOutput);
         localStorageSet("output2", $("#divOutput").html());
+        localStorageSet("divCount", _divCount);
         if (commandLog != null) {
             localStorageSet("commandLog", commandLog.join(";"));
         }
@@ -872,6 +873,7 @@ function loadGame() {
         $("#fontSample").css("font-size", currentFontSize + "pt");
 
         clearScreen();
+        _divCount = localStorageGet("divCount");
         $("#divOutput").html(localStorageGet("output2"));
         msg(localStorageGet("output"));
 
