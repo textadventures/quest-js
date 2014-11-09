@@ -1,0 +1,25 @@
+﻿@model QuestJSWeb.Models.CompileResult
+
+@{
+    ViewBag.Title = "Result";
+}
+
+<h2>Result</h2>
+
+@if (Model.Success)
+{
+    <p>Created successfully.</p>
+    
+    <p>Download: <a href="@Model.DownloadUrl">@Model.DownloadUrl</a></p>
+}
+else
+{
+    <p>Failed to compile.</p>
+    
+    <ul>
+        @foreach (var error in Model.Errors)
+        {
+            <li>@error</li>
+        }
+    </ul>
+}

@@ -1,5 +1,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Compiler", "Compiler\Compiler.csproj", "{64131651-5158-493D-A1CF-27C7575F2653}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompilerTests", "CompilerTests\CompilerTests.csproj", "{EE80BC14-47EF-4465-A758-11CC8A92E4DF}"
@@ -15,10 +17,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuestCompiler", "QuestCompi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility", "Utility\Utility.csproj", "{0E926905-F750-49F9-AEBD-CE14B2B231D8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuestJSWeb", "QuestJSWeb\QuestJSWeb\QuestJSWeb.csproj", "{7A7C54D9-7F84-4F52-81F7-3C097A9184CB}"
+EndProject
 Global
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = QuestJS.vsmdi
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -70,8 +71,21 @@ Global
 		{0E926905-F750-49F9-AEBD-CE14B2B231D8}.Release|Mixed Platforms.Build.0 = Release|x86
 		{0E926905-F750-49F9-AEBD-CE14B2B231D8}.Release|x86.ActiveCfg = Release|x86
 		{0E926905-F750-49F9-AEBD-CE14B2B231D8}.Release|x86.Build.0 = Release|x86
+		{7A7C54D9-7F84-4F52-81F7-3C097A9184CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A7C54D9-7F84-4F52-81F7-3C097A9184CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A7C54D9-7F84-4F52-81F7-3C097A9184CB}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{7A7C54D9-7F84-4F52-81F7-3C097A9184CB}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{7A7C54D9-7F84-4F52-81F7-3C097A9184CB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7A7C54D9-7F84-4F52-81F7-3C097A9184CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A7C54D9-7F84-4F52-81F7-3C097A9184CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A7C54D9-7F84-4F52-81F7-3C097A9184CB}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{7A7C54D9-7F84-4F52-81F7-3C097A9184CB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{7A7C54D9-7F84-4F52-81F7-3C097A9184CB}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = QuestJS.vsmdi
 	EndGlobalSection
 EndGlobal

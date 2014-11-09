@@ -1,0 +1,28 @@
+﻿@model QuestJSWeb.Models.CompileModel
+
+@{
+    ViewBag.Title = "Compile";
+}
+
+<h2>Compile</h2>
+
+<p>This is the web version of <a href="https://github.com/textadventures/quest-js">QuestJS</a> - a service for converting games written using <a href="http://textadventures.co.uk">Quest</a>
+    into HTML and JavaScript.</p>
+
+<p>Upload your <b>.quest</b> file here, and after a few seconds you'll be able to download a zip file containing all the HTML, CSS and JavaScript required to run your game.</p>
+
+<p>To generate your .quest file:</p>
+
+<ul>
+    <li>If you're using the Windows desktop version of Quest, open your game in the editor, then click Tools, Publish.</li>
+    <li>If you're using the web version of Quest, publish your game to textadventures.co.uk (you can keep it unlisted so it doesn't become public). Then from your game
+    listing page, click the "Download file" link in the column on the right.</li>
+</ul>
+
+<form action="" method="post" enctype="multipart/form-data">
+    <input type="file" name="File" id="File" />
+    @Html.ValidationMessageFor(m => m.File)
+
+    <br />
+    <button class="btn btn-success" type="submit"> Compile</button>
+</form>
