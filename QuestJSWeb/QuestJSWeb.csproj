@@ -41,7 +41,7 @@
   <ItemGroup>
     <Reference Include="Ionic.Zip.Reduced, Version=1.9.1.5, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Dependencies\Ionic.Zip.Reduced.dll</HintPath>
+      <HintPath>..\Dependencies\Ionic.Zip.Reduced.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Data.Edm, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -62,7 +62,7 @@
       <HintPath>..\packages\WindowsAzure.Storage.3.1.0.0\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -205,123 +205,123 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\..\Compiler\bootstrap-responsive.css">
+    <Content Include="..\Compiler\bootstrap-responsive.css">
       <Link>Resources\bootstrap-responsive.css</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\Compiler\bootstrap.css">
+    <Content Include="..\Compiler\bootstrap.css">
       <Link>Resources\bootstrap.css</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\Compiler\game.js">
+    <Content Include="..\Compiler\game.js">
       <Link>Resources\game.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\Compiler\images\glyphicons-halflings-white.png">
+    <Content Include="..\Compiler\images\glyphicons-halflings-white.png">
       <Link>Resources\images\glyphicons-halflings-white.png</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\Compiler\images\glyphicons-halflings.png">
+    <Content Include="..\Compiler\images\glyphicons-halflings.png">
       <Link>Resources\images\glyphicons-halflings.png</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\Compiler\images\quest.png">
+    <Content Include="..\Compiler\images\quest.png">
       <Link>Resources\images\quest.png</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\Compiler\images\ta-logo.png">
+    <Content Include="..\Compiler\images\ta-logo.png">
       <Link>Resources\images\ta-logo.png</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\Compiler\images\ui-bg_diagonals-thick_18_b81900_40x40.png">
+    <Content Include="..\Compiler\images\ui-bg_diagonals-thick_18_b81900_40x40.png">
       <Link>Resources\images\ui-bg_diagonals-thick_18_b81900_40x40.png</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\Compiler\images\ui-bg_diagonals-thick_20_666666_40x40.png">
+    <Content Include="..\Compiler\images\ui-bg_diagonals-thick_20_666666_40x40.png">
       <Link>Resources\images\ui-bg_diagonals-thick_20_666666_40x40.png</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\Compiler\images\ui-bg_flat_10_000000_40x100.png">
+    <Content Include="..\Compiler\images\ui-bg_flat_10_000000_40x100.png">
       <Link>Resources\images\ui-bg_flat_10_000000_40x100.png</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\Compiler\images\ui-bg_glass_100_f6f6f6_1x400.png">
+    <Content Include="..\Compiler\images\ui-bg_glass_100_f6f6f6_1x400.png">
       <Link>Resources\images\ui-bg_glass_100_f6f6f6_1x400.png</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\Compiler\images\ui-bg_glass_100_fdf5ce_1x400.png">
+    <Content Include="..\Compiler\images\ui-bg_glass_100_fdf5ce_1x400.png">
       <Link>Resources\images\ui-bg_glass_100_fdf5ce_1x400.png</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\Compiler\images\ui-bg_glass_65_ffffff_1x400.png">
+    <Content Include="..\Compiler\images\ui-bg_glass_65_ffffff_1x400.png">
       <Link>Resources\images\ui-bg_glass_65_ffffff_1x400.png</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\Compiler\images\ui-bg_gloss-wave_35_f6a828_500x100.png">
+    <Content Include="..\Compiler\images\ui-bg_gloss-wave_35_f6a828_500x100.png">
       <Link>Resources\images\ui-bg_gloss-wave_35_f6a828_500x100.png</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\Compiler\images\ui-bg_highlight-soft_100_eeeeee_1x100.png">
+    <Content Include="..\Compiler\images\ui-bg_highlight-soft_100_eeeeee_1x100.png">
       <Link>Resources\images\ui-bg_highlight-soft_100_eeeeee_1x100.png</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\Compiler\images\ui-bg_highlight-soft_75_ffe45c_1x100.png">
+    <Content Include="..\Compiler\images\ui-bg_highlight-soft_75_ffe45c_1x100.png">
       <Link>Resources\images\ui-bg_highlight-soft_75_ffe45c_1x100.png</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\Compiler\images\ui-icons_222222_256x240.png">
+    <Content Include="..\Compiler\images\ui-icons_222222_256x240.png">
       <Link>Resources\images\ui-icons_222222_256x240.png</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\Compiler\images\ui-icons_228ef1_256x240.png">
+    <Content Include="..\Compiler\images\ui-icons_228ef1_256x240.png">
       <Link>Resources\images\ui-icons_228ef1_256x240.png</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\Compiler\images\ui-icons_ef8c08_256x240.png">
+    <Content Include="..\Compiler\images\ui-icons_ef8c08_256x240.png">
       <Link>Resources\images\ui-icons_ef8c08_256x240.png</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\Compiler\images\ui-icons_ffd27a_256x240.png">
+    <Content Include="..\Compiler\images\ui-icons_ffd27a_256x240.png">
       <Link>Resources\images\ui-icons_ffd27a_256x240.png</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\Compiler\images\ui-icons_ffffff_256x240.png">
+    <Content Include="..\Compiler\images\ui-icons_ffffff_256x240.png">
       <Link>Resources\images\ui-icons_ffffff_256x240.png</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\Compiler\index.htm">
+    <Content Include="..\Compiler\index.htm">
       <Link>Resources\index.htm</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\Compiler\jquery-ui-1.8.16.custom.css">
+    <Content Include="..\Compiler\jquery-ui-1.8.16.custom.css">
       <Link>Resources\jquery-ui-1.8.16.custom.css</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\Compiler\js\bootstrap.min.js">
+    <Content Include="..\Compiler\js\bootstrap.min.js">
       <Link>Resources\js\bootstrap.min.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\Compiler\js\jjmenu.css">
+    <Content Include="..\Compiler\js\jjmenu.css">
       <Link>Resources\js\jjmenu.css</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\Compiler\js\jjmenu.js">
+    <Content Include="..\Compiler\js\jjmenu.js">
       <Link>Resources\js\jjmenu.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\Compiler\js\jquery-ui-1.8.16.custom.min.js">
+    <Content Include="..\Compiler\js\jquery-ui-1.8.16.custom.min.js">
       <Link>Resources\js\jquery-ui-1.8.16.custom.min.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\Compiler\js\jquery.min.js">
+    <Content Include="..\Compiler\js\jquery.min.js">
       <Link>Resources\js\jquery.min.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\Compiler\js\xregexp-min.js">
+    <Content Include="..\Compiler\js\xregexp-min.js">
       <Link>Resources\js\xregexp-min.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\Compiler\style.css">
+    <Content Include="..\Compiler\style.css">
       <Link>Resources\style.css</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -373,11 +373,11 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Compiler\Compiler.csproj">
+    <ProjectReference Include="..\Compiler\Compiler.csproj">
       <Project>{64131651-5158-493d-a1cf-27c7575f2653}</Project>
       <Name>Compiler</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Utility\Utility.csproj">
+    <ProjectReference Include="..\Utility\Utility.csproj">
       <Project>{0e926905-f750-49f9-aebd-ce14b2b231d8}</Project>
       <Name>Utility</Name>
     </ProjectReference>

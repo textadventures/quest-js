@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuestCompiler", "QuestCompi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility", "Utility\Utility.csproj", "{0E926905-F750-49F9-AEBD-CE14B2B231D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuestJSWeb", "QuestJSWeb\QuestJSWeb\QuestJSWeb.csproj", "{7A7C54D9-7F84-4F52-81F7-3C097A9184CB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuestJSWeb", "QuestJSWeb\QuestJSWeb.csproj", "{7A7C54D9-7F84-4F52-81F7-3C097A9184CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
