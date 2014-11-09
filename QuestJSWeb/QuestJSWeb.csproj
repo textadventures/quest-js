@@ -416,4 +416,10 @@
   </Target>
   <Target Name="AfterBuild">
   </Target> -->
+   <Target Name="AfterBuild">
+    <Copy SourceFiles="Settings.Template.config" 
+    DestinationFiles="Settings.config" SkipUnchangedFiles="true" 
+    Condition="!Exists('Settings.config')">
+    </Copy>
+  </Target> 
 </Project>
