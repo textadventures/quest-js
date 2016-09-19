@@ -1,20 +1,11 @@
 QuestJS
 =======
 
-QuestJS an app (and online service) which takes in a [Quest 5](https://github.com/textadventures/quest) .quest file
-and spits out a folder full of HTML, CSS and JS.
+**THIS PROJECT IS NO LONGER BEING DEVELOPED OR MAINTAINED!**
 
-This allows any game to be converted into something that will run stand-alone in a web browser. The
-files could also be wrapped with [PhoneGap](http://phonegap.com) to create an app.
+QuestJS takes in a [Quest 5](https://github.com/textadventures/quest) .quest file
+and spits out a folder full of HTML, CSS and JS. It was used for turning Quest games into apps, as the output can be wrapped using tools like PhoneGap.
 
-To run QuestJS on Windows, [download the latest release](https://github.com/textadventures/quest-js/releases).
+The source is being kept online here for the moment for reference, but it is **no longer being developed or maintained**.
 
-If you're not using Windows (or just don't want to download anything), try the [web version](http://questjs.azurewebsites.net/compile).
-
-This software is at an early alpha stage, and you will very likely encounter problems! When you experience a bug, please [add an issue](https://github.com/textadventures/quest-js/issues) and give as much detail as you can. You can email files to alex@textadventures.co.uk.
-
-Useful links:
-
-* [textadventures.co.uk](http://textadventures.co.uk)
-* [Developer Forum](http://forum.textadventures.co.uk/viewforum.php?f=15)
-* [Quest 5](https://github.com/textadventures/quest)
+Instead, [Quest 6](https://github.com/textadventures/quest/tree/v6) is under development, which will provide a native JavaScript runtime for all Quest games which can run on any platform.
