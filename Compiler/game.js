@@ -1137,8 +1137,10 @@ function addText(text) {
     scrollToEnd();
 }
 
+
 var _divCount = 0;
 
+/* Commented out by KV 10042017
 function createNewDiv(alignment) {
     _divCount++;
     $("<div/>", {
@@ -1146,6 +1148,51 @@ function createNewDiv(alignment) {
         style: "text-align: " + alignment
     }).appendTo("#divOutput");
     _currentDiv = $("#divOutputAlign" + _divCount);
+}
+*/
+
+function createNewDiv(alignment) {
+    var classes = _outputSections.join(" ");
+    setDivCount(getDivCount() + 1);
+    $("<div/>", {
+        id: "divOutputAlign" + getDivCount(),
+        style: "text-align: " + alignment,
+        "class": classes
+    }).appendTo("#divOutput");
+    setCurrentDiv("#divOutputAlign" + getDivCount());
+}
+
+var _currentDiv = null;
+
+function getCurrentDiv() {
+    if (_currentDiv) return _currentDiv;
+
+    var divId = $("#outputData").attr("data-currentdiv");
+    if (divId) {
+        _currentDiv = $(divId);
+        return _currentDiv;
+    }
+
+    return null;
+}
+
+function setCurrentDiv(div) {
+    _currentDiv = $(div);
+    $("#outputData").attr("data-currentdiv", div);
+}
+
+var _divCount = -1;
+
+function getDivCount() {
+    if (_divCount == -1) {
+        _divCount = parseInt($("#outputData").attr("data-divcount"));
+    }
+    return _divCount;
+}
+
+function setDivCount(count) {
+    _divCount = count;
+    $("#outputData").attr("data-divcount", _divCount);
 }
 
 function bindMenu(linkid, verbs, text, inline) {
@@ -2799,6 +2846,18 @@ function DoesInherit(obj, type) {
 function Floor(n) {
     return Math.floor(n);
 }
+
+//Added by KV 10042017
+function setCss(element, cssString) {
+  el = $(element);
+  ary = cssString.split(";");
+  for (i = 0; i < ary.length; i++) {
+    ary2 = ary[i].split(':');
+    el.css(ary2[0], ary2[1]);
+  }
+}
+
+
 
 var templates = new Object();
 var dynamicTemplates = new Object();
