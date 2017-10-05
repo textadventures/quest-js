@@ -1150,7 +1150,7 @@ function createNewDiv(alignment) {
     _currentDiv = $("#divOutputAlign" + _divCount);
 }
 */
-
+//Added by KV 10042017
 function createNewDiv(alignment) {
     var classes = _outputSections.join(" ");
     setDivCount(getDivCount() + 1);
@@ -1162,8 +1162,10 @@ function createNewDiv(alignment) {
     setCurrentDiv("#divOutputAlign" + getDivCount());
 }
 
+//Added by KV 10042017
 var _currentDiv = null;
 
+//Added by KV 10042017
 function getCurrentDiv() {
     if (_currentDiv) return _currentDiv;
 
@@ -1176,13 +1178,16 @@ function getCurrentDiv() {
     return null;
 }
 
+//Added by KV 10042017
 function setCurrentDiv(div) {
     _currentDiv = $(div);
     $("#outputData").attr("data-currentdiv", div);
 }
 
+//Added by KV 10042017
 var _divCount = -1;
 
+//Added by KV 10042017
 function getDivCount() {
     if (_divCount == -1) {
         _divCount = parseInt($("#outputData").attr("data-divcount"));
@@ -1190,6 +1195,7 @@ function getDivCount() {
     return _divCount;
 }
 
+//Added by KV 10042017
 function setDivCount(count) {
     _divCount = count;
     $("#outputData").attr("data-divcount", _divCount);
