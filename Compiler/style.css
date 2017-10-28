@@ -31,11 +31,12 @@ div#gameBorder
     margin-right: auto;
     margin-top: 0;
 }
-div#gamePanes
-{
-    padding-bottom: 10px;
-    background: white;
-}
+//div#gamePanes
+//{
+//    padding-bottom: 10px;
+//    background: white;
+//}
+div#gamePanes { background: white; width: fit-content; position: fixed; right: 0; top: 16px; }
 div#status
 {
     background: #E0E0FF;
