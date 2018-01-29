@@ -52,26 +52,13 @@ function init() {
         set(GetObject("game"), "defaultfontsize", parseInt(newFontSize));
         saveGame();
     });
-
-    $(document).on("click", ".elementmenu", function (event) {
-        if (!$(this).hasClass("disabled")) {
-            event.preventDefault();
-            event.stopPropagation();
-            // TO DO
-            $(this).blur();
-            return false;
-        }
-    });
+	
+	
 	
 	$(document).on("click", ".elementmenu", function (event) {
         if (!$(this).hasClass("disabled")) {
             event.preventDefault();
             event.stopPropagation();
- 			var verbs = $(this).attr('data-verbs');
-			var linkid = $(this).attr('id');
-			var text = $(this).html();
-			var inline = false;
-			bindMenu(linkid, verbs, text, inline);
             $(this).blur();
             return false;
         }
@@ -1168,11 +1155,12 @@ function setCommandBarStyle(style) {
     $("#txtCommand").width(width);
 }
 
+var transcriptArr = [];
 function addText(text) {
     if (_currentDiv == null) {
         createNewDiv("left");
     }
-
+	transcriptArr.push(text + '\n');
     _currentDiv.append(text);
     scrollToEnd();
 }
@@ -1263,6 +1251,11 @@ function updateObjectLinks(data) {
         } else {
             $e.addClass("disabled");
         }
+		var verbs = $(this).attr('data-verbs');
+		var linkid = $(this).attr('id');
+		var text = $(this).html();
+		var inline = false;
+		bindMenu(linkid, verbs, text, inline);
     });
 }
 
@@ -1906,6 +1899,8 @@ function request(requestType, data) {
             setPanelContents(data);
             break;
         case "Log":
+			// Fix this later!
+		    logArray += data;
             break;
         case "Speak":
             break;
