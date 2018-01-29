@@ -8,6 +8,7 @@ var tickCount = 0;
 var sendNextGameTickerAfter = 0;
 var verbButtonCount = 9;
 var commandLog = null;
+var canSendCommand = true;
 
 function init() {
     showStatusVisible(false);
@@ -57,6 +58,20 @@ function init() {
             event.preventDefault();
             event.stopPropagation();
             // TO DO
+            $(this).blur();
+            return false;
+        }
+    });
+	
+	$(document).on("click", ".elementmenu", function (event) {
+        if (!$(this).hasClass("disabled")) {
+            event.preventDefault();
+            event.stopPropagation();
+ 			var verbs = $(this).attr('data-verbs');
+			var linkid = $(this).attr('id');
+			var text = $(this).html();
+			var inline = false;
+			bindMenu(linkid, verbs, text, inline);
             $(this).blur();
             return false;
         }
@@ -167,6 +182,10 @@ function endPause() {
         //$("#fldUIMsg").val("endpause");
         //$("#cmdSubmit").click();
     }, 100);
+}
+
+function SetTimeout(todo,time){
+	setTimeout(todo,time)
 }
 
 function globalKey(e) {
@@ -385,6 +404,7 @@ function updateList(listName, listData) {
     }
 
     if (listName == "placesobjects") {
+		$('#gameObjects').show();
         listElement = "#objectsList";
         emptyListLabel = "#placesObjectsEmpty";
     }
@@ -398,13 +418,33 @@ function updateList(listName, listData) {
         var splitString = value.split(":");
         var objectDisplayName = splitString[0];
         var objectVerbs = splitString[1];
-
-        if (listName == "inventory" || $.inArray(objectDisplayName, _compassDirs) == -1) {
+		var hasListAlias = false;
+        var thisObj = GetObject(objectDisplayName);
+		var objNameToClass = objectDisplayName.replace(/ /g,'-');
+		var objectListAlias = objectDisplayName;
+		
+		if (typeof(thisObj['listalias']) === "string" && thisObj['listalias'] !== ""){
+			hasListAlias = true;
+			objectListAlias = thisObj['listalias'];
+		}
+		
+		if (listName == "inventory" || $.inArray(objectDisplayName, _compassDirs) == -1) {
+	        listcount++;
+            lastPaneLinkId++;
+            var paneLinkId = "paneLink" + lastPaneLinkId;
+            $(listElement).append(
+                "<li id=\"" + paneLinkId + "\" class=\"" + objNameToClass + "\" href=\"#\">" + objectListAlias + "</li>"
+            );
+            bindMenu(paneLinkId, objectVerbs, objectDisplayName, false);
+            anyItem = true;
+        }
+		else if (listName == "placesobjects" || $.inArray(objectDisplayName, _compassDirs) == -1) {
+			
             listcount++;
             lastPaneLinkId++;
             var paneLinkId = "paneLink" + lastPaneLinkId;
             $(listElement).append(
-                "<li id=\"" + paneLinkId + "\" href=\"#\">" + objectDisplayName + "</li>"
+				"<li id=\"" + paneLinkId + "\" class=\"" + objNameToClass + "\" href=\"#\">" + objectListAlias + "</li>"
             );
             bindMenu(paneLinkId, objectVerbs, objectDisplayName, false);
             anyItem = true;
@@ -1150,7 +1190,7 @@ function createNewDiv(alignment) {
     _currentDiv = $("#divOutputAlign" + _divCount);
 }
 */
-//Added by KV 10042017
+
 function createNewDiv(alignment) {
     var classes = _outputSections.join(" ");
     setDivCount(getDivCount() + 1);
@@ -1162,10 +1202,8 @@ function createNewDiv(alignment) {
     setCurrentDiv("#divOutputAlign" + getDivCount());
 }
 
-//Added by KV 10042017
 var _currentDiv = null;
 
-//Added by KV 10042017
 function getCurrentDiv() {
     if (_currentDiv) return _currentDiv;
 
@@ -1178,16 +1216,13 @@ function getCurrentDiv() {
     return null;
 }
 
-//Added by KV 10042017
 function setCurrentDiv(div) {
     _currentDiv = $(div);
     $("#outputData").attr("data-currentdiv", div);
 }
 
-//Added by KV 10042017
 var _divCount = -1;
 
-//Added by KV 10042017
 function getDivCount() {
     if (_divCount == -1) {
         _divCount = parseInt($("#outputData").attr("data-divcount"));
@@ -1195,7 +1230,6 @@ function getDivCount() {
     return _divCount;
 }
 
-//Added by KV 10042017
 function setDivCount(count) {
     _divCount = count;
     $("#outputData").attr("data-divcount", _divCount);
@@ -1261,6 +1295,7 @@ function updateCommandLinks(data) {
 function disableAllCommandLinks() {
     $(".commandlink").each(function (index, e) {
         $(e).addClass("disabled");
+		$(e).href('');
     });
 }
 
@@ -1822,6 +1857,9 @@ function dictionaryremove(dictionary, key) {
     delete dictionary[key];
     markModified(dictionary);
 }
+
+
+var logArray = [];
 
 function request(requestType, data) {
     switch (requestType) {
@@ -2865,6 +2903,7 @@ function setCss(element, cssString) {
 
 
 
+
 var templates = new Object();
 var dynamicTemplates = new Object();
 var allObjects = new Array();
@@ -2878,4 +2917,3 @@ var objectDictionaryReferences = new Array();
 var embeddedHtml = new Object();
 var objectsNameMap = new Object();
 var elementsNameMap = new Object();
-
