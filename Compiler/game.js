@@ -1,4 +1,4 @@
-﻿var selectSizeWithoutStatus = 8;
+var selectSizeWithoutStatus = 8;
 var selectSizeWithStatus = 6;
 var numCommands = 0;
 var thisCommand = 0;
