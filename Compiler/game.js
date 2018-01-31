@@ -347,17 +347,41 @@ function playMp3(filename, sync, looped) {
 
 //function playAudio(filename, format, sync, looped) {
 function playAudio(filename, sync, looped) {
-    var soundDiv = document.createElement('audio');
-    soundDiv.setAttribute('id', 'audio-div');
-    //$("#sound-div").show();
-    $("#audio-div").attr('src', filename);
-    $("#audio-div")[0].play();
+    stopAudio();
+    msg(" <audio autoplay id='audio-div'><source src='"+filename+"'>Your browser does not support the audio element.</audio> ");
+    soundDiv = document.getElementById('audio-div');
+    if (looped) {
+        $("#audio-div").attr('loop', true);
+        if (typeof soundDiv.loop == 'boolean') {
+            soundDiv.loop = true;
+        }
+        else {
+            soundDiv.addEventListener('ended', function () {
+                soundDiv.currentTime = 0;
+                soundDiv.play();
+            }, false);
+        }
+    }
+    if (sync) {
+        _waitingForSoundToFinish = true;
+        $("#divCommand").hide();
+        $("#gamePanes").hide();
+        setTimeout(function () { $('a').css('color', 'black'); }, 500);
+        soundDiv.addEventListener('ended', function () {
+            stopAudio();
+        }, false);
+    }
+    //$("#audio-div")[0].play();
 }
 
 function stopAudio() {
-    $('#restart').click();
-    $('#pause').click();
-    //finishSync();
+    $("#audio-div").remove();
+    $("#divCommand").show();
+    $("#gamePanes").show();
+    $('a').css('color', 'blue');
+    if (_waitingForSoundToFinish) {
+        _waitingForSoundToFinish = false;
+    }
 }
 
 function finishSync() {
@@ -415,17 +439,22 @@ function updateList(listName, listData) {
     $.each(listData, function (key, value) {
         var splitString = value.split(":");
         var objectDisplayName = splitString[0];
+        if (typeof (thisObj) !== "undefined") {
+            return false;
+        }
         var objectVerbs = splitString[1];
 		var hasListAlias = false;
         var thisObj = GetObject(objectDisplayName);
 		var objNameToClass = objectDisplayName.replace(/ /g,'-');
 		var objectListAlias = objectDisplayName;
-		
-		if (typeof(thisObj['listalias']) === "string" && thisObj['listalias'] !== ""){
-			hasListAlias = true;
-			objectListAlias = thisObj['listalias'];
+		if (typeof (thisObj) !== "undefined") {
+		    if (typeof (thisObj['listalias']) === "string") {
+		        if (thisObj['listalias'] !== "") {
+		            hasListAlias = true;
+		            objectListAlias = thisObj['listalias'];
+		        }
+		    }
 		}
-		
 		if (listName == "inventory" || $.inArray(objectDisplayName, _compassDirs) == -1) {
 	        listcount++;
             lastPaneLinkId++;
@@ -3061,7 +3090,36 @@ function setCss(element, cssString) {
 }
 
 
+var Sin = Math.sin;
+var Abs = Math.abs;
+var Acos = Math.acos;
+var Asin = Math.asin;
+var Atan = Math.atan;
+var Cos = Math.cos;
+var Exp = Math.exp;
+var Log = Math.log;
+var Log10 = Math.log10;
+var Sinh = Math.sinh;
+var Sqrt = Math.sqrt;
+var Tan = Math.tan;
+var Tanh = Math.tanh;
 
+var Ceiling = Math.ceil;
+var Floor = Math.floor;
+var Round = Math.round;
+var Truncate = Math.trunc;
+var Sign = Math.sign;
+
+var Min = Math.min;
+var Max = Math.max;
+
+
+var Pi = Math.PI;
+var e = Math.e;
+
+function addTextAndScroll(text) { addText('<br/>' + text); scrollToEnd(); };
+
+var msg = addTextAndScroll;
 
 var templates = new Object();
 var dynamicTemplates = new Object();
