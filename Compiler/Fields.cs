@@ -279,8 +279,8 @@ namespace TextAdventures.Quest
 
             foreach (var objectList in m_objectLists)
             {
-                QuestList<Element> newList = new QuestList<Element>(objectList.Value.Select(l => loader.Elements[l]));
-                Set(objectList.Key, newList);
+                QuestList<Element> newStringList = new QuestList<Element>(objectList.Value.Select(l => loader.Elements[l]));
+                Set(objectList.Key, newStringList);
             }
 
             foreach (var objectDict in m_objectDictionaries)

@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
     <script type="text/javascript" src="js/xregexp-min.js"></script>
@@ -19,7 +20,7 @@
     <link rel="stylesheet" type="text/css" href="jquery-ui-1.8.16.custom.css" />
     <title>$$GAMENAME$$</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    
     <meta name="format-detection" content="telephone=no" />
     <script>
         function onBodyLoad() {
@@ -103,7 +104,12 @@
                             <div id="gamePanesRunning">
                                 <h2 id="inventoryLabel" class="paneHeader">$$TAB_INVENTORY$$</h2>
                                 <p id="inventoryEmpty" class="emptyListLabel">$$TEXT_EMPTY$$</p>
-                                <ul class="elementList" id="inventoryList"></ul>
+								<ul class="elementList" id="inventoryList"></ul>
+								<div id="gameObjects" style="display: none">
+                                  <h2 id="placesObjectsLabel" class="paneHeader">$$TAB_OBJECTS$$</h2>
+                                  <p id="placesObjectsEmpty" class="emptyListLabel">$$TEXT_NONE$$</p>
+                                  <ul class="elementList" id="objectsList"></ul>
+                                </div>
                                 <h2 id="statusLabel" class="paneHeader">$$TEXT_STATUS$$</h2>
                                 <div id="statusVars"></div>
                             </div>
@@ -114,11 +120,7 @@
                                     This game has finished.</p>
                             </div>
                         </div>
-                        <div id="gameObjects" style="display: none">
-                            <h2 id="placesObjectsLabel" class="paneHeader">$$TAB_OBJECTS$$</h2>
-                            <p id="placesObjectsEmpty" class="emptyListLabel">$$TEXT_NONE$$</p>
-                            <ul class="elementList" id="objectsList"></ul>
-                        </div>
+                        
                         <div id="gameExits" style="display: none">
                             <h2 id="compassLabel" class="paneHeader">$$TAB_EXITS$$</h2>
                             <table id="compassTable" style="margin-left:auto; margin-right:auto;">
@@ -263,6 +265,9 @@
                         </div>
                         <div id="gameContent">
                             <div id="divOutput">
+                            </div>
+                            <div id="sound-div" style="display:none;">
+                                <audio id="audio-div" src=""/>
                             </div>
                             <div id="divCommand">
                                 <table id="inputBar">

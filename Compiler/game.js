@@ -1,4 +1,4 @@
-﻿var selectSizeWithoutStatus = 8;
+var selectSizeWithoutStatus = 8;
 var selectSizeWithStatus = 6;
 var numCommands = 0;
 var thisCommand = 0;
@@ -8,6 +8,8 @@ var tickCount = 0;
 var sendNextGameTickerAfter = 0;
 var verbButtonCount = 9;
 var commandLog = null;
+var canSendCommand = true;
+var qjsPlayer = true;
 
 function init() {
     showStatusVisible(false);
@@ -51,12 +53,13 @@ function init() {
         set(GetObject("game"), "defaultfontsize", parseInt(newFontSize));
         saveGame();
     });
-
-    $(document).on("click", ".elementmenu", function (event) {
+	
+	
+	
+	$(document).on("click", ".elementmenu", function (event) {
         if (!$(this).hasClass("disabled")) {
             event.preventDefault();
             event.stopPropagation();
-            // TO DO
             $(this).blur();
             return false;
         }
@@ -167,6 +170,10 @@ function endPause() {
         //$("#fldUIMsg").val("endpause");
         //$("#cmdSubmit").click();
     }, 100);
+}
+
+function SetTimeout(todo,time){
+	setTimeout(todo,time)
 }
 
 function globalKey(e) {
@@ -331,16 +338,50 @@ function disableInterface() {
 }
 
 function playWav(filename, sync, looped) {
+    playAudio(filename, sync, looped);
 }
 
 function playMp3(filename, sync, looped) {
-    playAudio(filename, "mp3", sync, looped);
+    playAudio(filename, sync, looped);
 }
 
-function playAudio(filename, format, sync, looped) {
+//function playAudio(filename, format, sync, looped) {
+function playAudio(filename, sync, looped) {
+    stopAudio();
+    msg(" <audio autoplay id='audio-div'><source src='"+filename+"'>Your browser does not support the audio element.</audio> ");
+    soundDiv = document.getElementById('audio-div');
+    if (looped) {
+        $("#audio-div").attr('loop', true);
+        if (typeof soundDiv.loop == 'boolean') {
+            soundDiv.loop = true;
+        }
+        else {
+            soundDiv.addEventListener('ended', function () {
+                soundDiv.currentTime = 0;
+                soundDiv.play();
+            }, false);
+        }
+    }
+    if (sync) {
+        _waitingForSoundToFinish = true;
+        $("#divCommand").hide();
+        $("#gamePanes").hide();
+        setTimeout(function () { $('a').css('color', 'black'); }, 500);
+        soundDiv.addEventListener('ended', function () {
+            stopAudio();
+        }, false);
+    }
+    //$("#audio-div")[0].play();
 }
 
 function stopAudio() {
+    $("#audio-div").remove();
+    $("#divCommand").show();
+    $("#gamePanes").show();
+    $('a').css('color', 'blue');
+    if (_waitingForSoundToFinish) {
+        _waitingForSoundToFinish = false;
+    }
 }
 
 function finishSync() {
@@ -385,6 +426,7 @@ function updateList(listName, listData) {
     }
 
     if (listName == "placesobjects") {
+		$('#gameObjects').show();
         listElement = "#objectsList";
         emptyListLabel = "#placesObjectsEmpty";
     }
@@ -397,14 +439,39 @@ function updateList(listName, listData) {
     $.each(listData, function (key, value) {
         var splitString = value.split(":");
         var objectDisplayName = splitString[0];
+        if (typeof (thisObj) !== "undefined") {
+            return false;
+        }
         var objectVerbs = splitString[1];
-
-        if (listName == "inventory" || $.inArray(objectDisplayName, _compassDirs) == -1) {
+		var hasListAlias = false;
+        var thisObj = GetObject(objectDisplayName);
+		var objNameToClass = objectDisplayName.replace(/ /g,'-');
+		var objectListAlias = objectDisplayName;
+		if (typeof (thisObj) !== "undefined") {
+		    if (typeof (thisObj['listalias']) === "string") {
+		        if (thisObj['listalias'] !== "") {
+		            hasListAlias = true;
+		            objectListAlias = thisObj['listalias'];
+		        }
+		    }
+		}
+		if (listName == "inventory" || $.inArray(objectDisplayName, _compassDirs) == -1) {
+	        listcount++;
+            lastPaneLinkId++;
+            var paneLinkId = "paneLink" + lastPaneLinkId;
+            $(listElement).append(
+                "<li id=\"" + paneLinkId + "\" class=\"" + objNameToClass + "\" href=\"#\">" + objectListAlias + "</li>"
+            );
+            bindMenu(paneLinkId, objectVerbs, objectDisplayName, false);
+            anyItem = true;
+        }
+		else if (listName == "placesobjects" || $.inArray(objectDisplayName, _compassDirs) == -1) {
+			
             listcount++;
             lastPaneLinkId++;
             var paneLinkId = "paneLink" + lastPaneLinkId;
             $(listElement).append(
-                "<li id=\"" + paneLinkId + "\" href=\"#\">" + objectDisplayName + "</li>"
+				"<li id=\"" + paneLinkId + "\" class=\"" + objNameToClass + "\" href=\"#\">" + objectListAlias + "</li>"
             );
             bindMenu(paneLinkId, objectVerbs, objectDisplayName, false);
             anyItem = true;
@@ -1128,17 +1195,20 @@ function setCommandBarStyle(style) {
     $("#txtCommand").width(width);
 }
 
+var transcriptArr = [];
 function addText(text) {
     if (_currentDiv == null) {
         createNewDiv("left");
     }
-
+	transcriptArr.push(text + '\n');
     _currentDiv.append(text);
     scrollToEnd();
 }
 
+
 var _divCount = 0;
 
+/* Commented out by KV 10042017
 function createNewDiv(alignment) {
     _divCount++;
     $("<div/>", {
@@ -1146,6 +1216,51 @@ function createNewDiv(alignment) {
         style: "text-align: " + alignment
     }).appendTo("#divOutput");
     _currentDiv = $("#divOutputAlign" + _divCount);
+}
+*/
+
+function createNewDiv(alignment) {
+    var classes = _outputSections.join(" ");
+    setDivCount(getDivCount() + 1);
+    $("<div/>", {
+        id: "divOutputAlign" + getDivCount(),
+        style: "text-align: " + alignment,
+        "class": classes
+    }).appendTo("#divOutput");
+    setCurrentDiv("#divOutputAlign" + getDivCount());
+}
+
+var _currentDiv = null;
+
+function getCurrentDiv() {
+    if (_currentDiv) return _currentDiv;
+
+    var divId = $("#outputData").attr("data-currentdiv");
+    if (divId) {
+        _currentDiv = $(divId);
+        return _currentDiv;
+    }
+
+    return null;
+}
+
+function setCurrentDiv(div) {
+    _currentDiv = $(div);
+    $("#outputData").attr("data-currentdiv", div);
+}
+
+var _divCount = -1;
+
+function getDivCount() {
+    if (_divCount == -1) {
+        _divCount = parseInt($("#outputData").attr("data-divcount"));
+    }
+    return _divCount;
+}
+
+function setDivCount(count) {
+    _divCount = count;
+    $("#outputData").attr("data-divcount", _divCount);
 }
 
 function bindMenu(linkid, verbs, text, inline) {
@@ -1176,6 +1291,11 @@ function updateObjectLinks(data) {
         } else {
             $e.addClass("disabled");
         }
+		var verbs = $(this).attr('data-verbs');
+		var linkid = $(this).attr('id');
+		var text = $(this).html();
+		var inline = false;
+		bindMenu(linkid, verbs, text, inline);
     });
 }
 
@@ -1208,14 +1328,19 @@ function updateCommandLinks(data) {
 function disableAllCommandLinks() {
     $(".commandlink").each(function (index, e) {
         $(e).addClass("disabled");
+		$(e).href('');
     });
 }
 
 function clearScreen() {
     allOutput = "";
+    $("#divOutput").css("min-height", 0);
     $("#divOutput").html("");
     createNewDiv("left");
     beginningOfCurrentTurnScrollPosition = 0;
+    setTimeout(function () {
+        $("html,body").scrollTop(0);
+    }, 100);
 }
 
 function keyPressCode(e) {
@@ -1770,6 +1895,8 @@ function dictionaryremove(dictionary, key) {
     markModified(dictionary);
 }
 
+
+
 function request(requestType, data) {
     switch (requestType) {
         case "UpdateLocation":
@@ -1815,6 +1942,8 @@ function request(requestType, data) {
             setPanelContents(data);
             break;
         case "Log":
+			// Fix this later!
+		    addLogEntry(data);
             break;
         case "Speak":
             break;
@@ -1822,6 +1951,156 @@ function request(requestType, data) {
             throw "Request not supported: " + requestType + "; " + data;
     }
 }
+
+var logVar = "";
+function addLogEntry(text){
+  logVar += getTimeAndDateForLog() + ' ' + text+"\n";
+};
+
+function showLog(){
+  var logDivString = "";
+  logDivString += "<div ";
+  logDivString += "id='log-dialog' ";
+  logDivString += "style='display:none;;'>";
+  logDivString += "<textarea id='logdata' rows='13'";
+  logDivString += "  cols='49'></textarea></div>";
+  addText(logDivString);
+  if(webPlayer && !qjsPlayer){
+    var logDialog = $("#log-dialog").dialog({
+    autoOpen: false,
+    width: 600,
+    height: 500,
+    title: "Log",
+    buttons: {
+      Ok: function() {
+        $(this).dialog("close");
+      },
+      Print: function(){
+        $(this).dialog("close");
+        showLogDiv();
+        printLogDiv();
+      },
+      Save: function(){
+        $(this).dialog("close");
+        saveLog();
+      },
+    },
+    show: { effect: "fadeIn", duration: 500 },
+    // The modal setting keeps the player from interacting with anything besides the dialog window.
+    //  (The log will not update while open without adding a turn script.  I prefer this.)
+    modal: true,
+  });
+  } else if (!qjsPlayer) {
+      var logDialog = $("#log-dialog").dialog({
+          autoOpen: false,
+          width: 600,
+          height: 500,
+          title: "Log",
+          buttons: {
+              Ok: function () {
+                  $(this).dialog("close");
+              },
+              Print: function () {
+                  $(this).dialog("close");
+                  showLogDiv();
+                  printLogDiv();
+              },
+          },
+          show: { effect: "fadeIn", duration: 500 },
+          // The modal setting keeps the player from interacting with anything besides the dialog window.
+          //  (The log will not update while open without adding a turn script.  I prefer this.)
+          modal: true,
+      });
+      $('textarea#logdata').val(logVar.replace(/NEW_LINE/g, "\n"));
+      logDialog.dialog("open");
+    }
+    else {
+      alert(logVar);
+    }
+};
+
+var logDivIsSetUp = false;
+
+var logDivToAdd = "";
+logDivToAdd += "<div ";
+logDivToAdd += "id='log-div' ";
+logDivToAdd += "style='display:none;'>";
+logDivToAdd += "<a class='do-not-print-with-log' ";
+logDivToAdd += "href='' onclick='hideLogDiv()'>RETURN TO THE GAME</a>  ";
+logDivToAdd += "<a class='do-not-print-with-log' href='' ";
+logDivToAdd += "onclick='printLogDiv();'>PRINT</a> ";
+logDivToAdd += "<div id='log-contents-div' '></div></div>";
+
+function setupLogDiv(){
+  addText(logDivToAdd);
+  $("#log-div").insertBefore($("#gameBorder"));
+  logDivIsSetUp = true;
+};
+
+function showLogDiv(){
+    if(!logDivIsSetUp){
+     setupLogDiv(); 
+    }
+	$(".do-not-print-with-log").show();
+	$("#log-contents-div").html(logVar.replace(/NEW_LINE/g,"<br/>"));
+	$("#log-div").show();
+	$("#gameBorder").hide();
+};
+
+function hideLogDiv(){
+	$("#log-div").hide();
+	$("#gameBorder").show();
+};
+
+function printLogDiv(){
+  if(typeof(document.title) !== "undefined"){
+    var docTitleBak = document.title;
+  }else{
+    var docTitleBak = "title";
+  }
+  document.title = "log.txt" ;
+  $('.do-not-print-with-log').hide();
+  print();
+  $('.do-not-print-with-log').show();
+  document.title = docTitleBak;
+};
+
+
+function saveLog(){
+  if(webPlayer){
+    var href = "data:text/plain,"+logVar.replace(/NEW_LINE/g,"\n");
+    addTextAndScroll("<a download='log.txt' href='"+href+"' id='log-save-link'>Click here to save the log if your pop-up blocker stopped the download.</a>");
+    document.getElementById("log-save-link").addEventListener ("click", function (e) {e.stopPropagation();});
+    document.getElementById("log-save-link").click();
+  }else{
+    alert("This function is only available while playing online.");
+  }
+ };
+
+function getTimeAndDateForLog(){
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1;
+	var yyyy = today.getFullYear();
+	var hrs = today.getHours();
+	var mins = today.getMinutes();
+	var secs = today.getSeconds();
+	today = mm + '/' + dd + '/' + yyyy;
+	if(hrs>12) {
+	  ampm = 'AM';
+	  hrs = '0' + '' + hrs - 12
+	}else{
+	  ampm = 'PM';
+	} 
+	if (mins<10) {
+	  mins = '0'+mins;
+	} 
+	if(secs<10) {
+	  secs = '0' + secs;
+	}
+	time = hrs + ':' + mins + ':' + secs + ' ' + ampm;
+	return today + ' ' + time;
+};
 
 function requestShowHide_GetElement(element) {
     switch (element) {
@@ -2800,6 +3079,48 @@ function Floor(n) {
     return Math.floor(n);
 }
 
+//Added by KV 10042017
+function setCss(element, cssString) {
+  el = $(element);
+  ary = cssString.split(";");
+  for (i = 0; i < ary.length; i++) {
+    ary2 = ary[i].split(':');
+    el.css(ary2[0], ary2[1]);
+  }
+}
+
+
+var Sin = Math.sin;
+var Abs = Math.abs;
+var Acos = Math.acos;
+var Asin = Math.asin;
+var Atan = Math.atan;
+var Cos = Math.cos;
+var Exp = Math.exp;
+var Log = Math.log;
+var Log10 = Math.log10;
+var Sinh = Math.sinh;
+var Sqrt = Math.sqrt;
+var Tan = Math.tan;
+var Tanh = Math.tanh;
+
+var Ceiling = Math.ceil;
+var Floor = Math.floor;
+var Round = Math.round;
+var Truncate = Math.trunc;
+var Sign = Math.sign;
+
+var Min = Math.min;
+var Max = Math.max;
+
+
+var Pi = Math.PI;
+var e = Math.e;
+
+function addTextAndScroll(text) { addText('<br/>' + text); scrollToEnd(); };
+
+var msg = addTextAndScroll;
+
 var templates = new Object();
 var dynamicTemplates = new Object();
 var allObjects = new Array();
@@ -2813,4 +3134,3 @@ var objectDictionaryReferences = new Array();
 var embeddedHtml = new Object();
 var objectsNameMap = new Object();
 var elementsNameMap = new Object();
-
