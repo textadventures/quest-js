@@ -165,17 +165,12 @@ namespace TextAdventures.Quest
         private string CopyDependenciesToOutputFolder(string outputFolder, Dictionary<string, string> substitutionText, bool debugMode, string profile, bool minify, GameLoader loader, CompileOptions options)
         {
             string indexHtm = Copy("index.htm", _resourcesFolder, outputFolder, options, loader, substitutionText, debugMode: debugMode, outputFilename: "index.html");
-            Copy("style.css", _resourcesFolder, outputFolder, options, loader, substitutionText);
-            Copy("jquery-ui-1.8.16.custom.css", _resourcesFolder, outputFolder, options, loader, substitutionText);
+            Copy("*.css", _resourcesFolder, outputFolder, options, loader, substitutionText);
             Copy("game.js", _resourcesFolder, outputFolder, options, loader, substitutionText, debugMode);
             string jsFolder = System.IO.Path.Combine(_resourcesFolder, "js");
             string outputJsFolder = System.IO.Path.Combine(outputFolder, "js");
             System.IO.Directory.CreateDirectory(outputJsFolder);
-            Copy("jquery.min.js", jsFolder, outputJsFolder, options, loader);
-            Copy("jquery-ui*.js", jsFolder, outputJsFolder, options, loader);
-            Copy("xregexp*.js", jsFolder, outputJsFolder, options, loader);
-            Copy("jjmenu.js", jsFolder, outputJsFolder, options, loader);
-            Copy("bootstrap*.js", jsFolder, outputJsFolder, options, loader);
+            Copy("*.js", jsFolder, outputJsFolder, options, loader);
             Copy("*.css", jsFolder, outputJsFolder, options, loader);
             Copy("bootstrap*.css", _resourcesFolder, outputFolder, options, loader, substitutionText);
             string imagesFolder = System.IO.Path.Combine(_resourcesFolder, "images");
@@ -313,7 +308,7 @@ namespace TextAdventures.Quest
             }
         }
 
-        private static List<string> s_resourceExtensionsToCopy = new List<string> { ".jpg", ".jpeg", ".png", ".gif", ".wav", ".mp3" };
+        private static List<string> s_resourceExtensionsToCopy = new List<string> { ".jpg", ".jpeg", ".png", ".gif", ".wav", ".mp3", ".ogg", ".ogg" };
 
         private void CopyResourcesToOutputFolder(string resourcesFolder, string outputFolder)
         {

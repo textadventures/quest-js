@@ -15,12 +15,21 @@ namespace TextAdventures.Quest
         {
             m_count++;
             string mappedName = k_namePrefix + m_count;
+            if (elementName == "key")
+            {
+                elementName = "key ";
+            }
             m_map.Add(elementName, mappedName);
+
             return mappedName;
         }
 
         public string GetMappedName(string elementName)
         {
+            if (elementName == "key")
+            {
+                elementName = "key ";
+            }
             return m_map[elementName];
         }
     }

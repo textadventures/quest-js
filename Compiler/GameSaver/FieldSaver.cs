@@ -319,7 +319,24 @@ namespace TextAdventures.Quest
 
             protected override string ValueSaver(IScript value)
             {
-                return string.Format("function() {{ {0} }}", value == null ? string.Empty : value.Save(new Context()));
+                // FIXME: Find parameters my matching a regex pattern!
+                //string commandVariables = string.Empty;
+                //commandVariables += string.Format("var {0} = parameters['{0}'];\n", variable);
+  
+                string parameters = "";
+                string val = "";
+                if (value == null)
+                {
+                    val = string.Empty;
+                }
+                else {
+                    val = value.Save(new Context());
+                }
+                if (val.Contains("(section, data)"))
+                {
+                    parameters = "section, data";
+                }
+                return string.Format("function({1}) {{ {0} }}", val, parameters);
             }
         }
 

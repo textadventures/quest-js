@@ -88,7 +88,10 @@ namespace TextAdventures.Quest.Scripts
         {
             if (!m_loader.Elements.ContainsKey(m_procedure.Replace(Utility.SpaceReplacementString, " ")))
             {
-                throw new Exception(string.Format("Unknown function '{0}'", m_procedure));
+                if (m_procedure != "requestsave" && m_procedure != "requestspeak")
+                {
+                    throw new Exception(string.Format("Unknown function '{0}'", m_procedure));
+                }
             }
 
             if ((m_parameters == null || m_parameters.Parameters == null || m_parameters.Parameters.Count == 0) && m_paramFunction == null)
