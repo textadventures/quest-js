@@ -31,6 +31,7 @@ namespace QuestCompiler
             compiler.CompileFinished += compiler_CompileFinished;
             compiler.StatusUpdated += compiler_StatusUpdated;
             compiler.Progress += compiler_Progress;
+            MessageBox.Show("QuestJS does not display in-game maps.  If you have one included, it will be ignored."+Environment.NewLine + Environment.NewLine +"QuestJS has most of the same HTML elements that Quest has, but some have a different ID or class.  (Use your developer tools in your browser if you'd like to find the ID or class of an element.)" + Environment.NewLine + Environment.NewLine + "If you have named an object \"key\", it will be renamed \"key \".  (All scripts will still point to it, and the alias will be set to \"key\".)", "A Few Words of Warning Concerning QuestJS 6.4");
         }
 
         private void cmdBrowseSource_Click(object sender, RoutedEventArgs e)

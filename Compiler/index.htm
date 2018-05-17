@@ -1,8 +1,9 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <script type="text/javascript" src="js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.js"></script>
     <script type="text/javascript" src="js/xregexp-min.js"></script>
     <script type="text/javascript" src="game.js"></script>
     <link rel="stylesheet" href="js/jjmenu.css" />
@@ -15,11 +16,13 @@
     <link rel="stylesheet" href="bootstrap-responsive.css" />
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jjmenu.js"></script>
-    <link id="styleLink" runat="server" rel="Stylesheet" type="text/css" href="style.css" />
-    <link rel="stylesheet" type="text/css" href="jquery-ui-1.8.16.custom.css" />
+    <link id="styleLink" rel="Stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="jquery-ui.structure.css" />
+    <link rel="stylesheet" type="text/css" href="jquery-ui.theme.css" />
     <title>$$GAMENAME$$</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    
     <meta name="format-detection" content="telephone=no" />
     <script>
         function onBodyLoad() {
@@ -84,10 +87,12 @@
 </head>
     <body onkeydown="globalKey(event);" onload="onBodyLoad();">
         <div id="header" class="navbar navbar-fixed-top">
+            
           <div class="navbar-inner">
             <div class="container">
               <div class="navbar-text pull-right">
-                <a href="#gameMore" class="btn btn-mini" data-toggle="modal"><i class="icon-tasks"></i></a>
+                  <span id="status"><span id="location" style="left:1%;position:fixed;font-size:110%;font-weight:bold;color:black;"></span></span>
+                <a id="moreBtn"href="#gameMore" class="btn btn-mini" data-toggle="modal"><i class="icon-tasks"></i></a>
               </div>
             </div>
           </div>
@@ -101,100 +106,104 @@
                             -->
                         <div id="gamePanes" style="display: none">
                             <div id="gamePanesRunning">
-                                <h2 id="inventoryLabel" class="paneHeader">$$TAB_INVENTORY$$</h2>
-                                <p id="inventoryEmpty" class="emptyListLabel">$$TEXT_EMPTY$$</p>
-                                <ul class="elementList" id="inventoryList"></ul>
-                                <h2 id="statusLabel" class="paneHeader">$$TEXT_STATUS$$</h2>
-                                <div id="statusVars"></div>
+                                <div id="gameExits">
+                                    <h3 id="compassLabel" class="ui-accordion-header ui-helper-reset ui-state-active ui-corner-top"><span class="ui-icon ui-icon-triangle-1-s"></span><span class="accordion-header-text">Compass</span></h3>
+                                    <div id="compassAccordion" class="ui-accordion-content-active ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" style="">
+                                        <table id="compassTable">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <table>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        <button id="cmdCompassNW" class="compassbutton_nw compassbutton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" type="button" title="northwest" onclick="compassClick(_compassDirs[0]);" role="button"><span class="ui-button-icon-primary ui-icon ui-icon-arrowthick-1-nw"></span><span class="ui-button-text"></span></button>
+                                                                    </td>
+                                                                    <td>
+                                                                        <button id="cmdCompassN" class="compassbutton compassbutton_n ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" type="button" title="north" onclick="compassClick(_compassDirs[1]);"><span class="images/ui-button-icon-primary ui-icon ui-icon-arrowthick-1-n"></span><span class="compassbutton_n ui-button-text"></span></button>
+                                                                    </td>
+                                                                    <td>
+                                                                        <button id="cmdCompassNE" class="compassbutton_ne compassbutton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" type="button" title="northeast" onclick="compassClick(_compassDirs[2]);" role="button"><span class="ui-button-icon-primary ui-icon ui-icon-arrowthick-1-ne"></span><span class="ui-button-text"></span></button>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <button id="cmdCompassW" class="compassbutton_w compassbutton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" type="button" title="west" onclick="compassClick(_compassDirs[3]);" role="button"><span class="ui-button-icon-primary ui-icon ui-icon-arrowthick-1-w"></span><span class="ui-button-text"></span></button>
+                                                                    </td>
+                                                                    <td>
+                                                                        &nbsp;
+                                                                    </td>
+                                                                    <td>
+                                                                        <button id="cmdCompassE" class="compassbutton_e compassbutton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" type="button" title="east" onclick="compassClick(_compassDirs[4]);" role="button"><span class="ui-button-icon-primary ui-icon ui-icon-arrowthick-1-e"></span><span class="ui-button-text"></span></button>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <button id="cmdCompassSW" class="compassbutton_sw compassbutton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" type="button" title="southwest" onclick="compassClick(_compassDirs[5]);" role="button"><span class="ui-button-icon-primary ui-icon ui-icon-arrowthick-1-sw"></span><span class="ui-button-text"></span></button>
+                                                                    </td>
+                                                                    <td>
+                                                                        <button id="cmdCompassS" class="compassbutton_s compassbutton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" type="button" title="south" onclick="compassClick(_compassDirs[6]);" role="button"><span class="ui-button-icon-primary ui-icon ui-icon-arrowthick-1-s"></span><span class="ui-button-text"></span></button>
+                                                                    </td>
+                                                                    <td>
+                                                                        <button id="cmdCompassSE" class="compassbutton_se compassbutton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" type="button" title="southeast" onclick="compassClick(_compassDirs[7]);" role="button"><span class="ui-button-icon-primary ui-icon ui-icon-arrowthick-1-se"></span><span class="ui-button-text"></span></button>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                    <td>
+                                                        <table>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        <button id="cmdCompassU" class="compassbutton_up compassbutton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" type="button" title="up" onclick="compassClick(_compassDirs[8]);" role="button"><span class="ui-button-icon-primary ui-icon ui-icon-triangle-1-n"></span><span class="ui-button-text"></span></button>
+                                                                    </td>
+                                                                    <td>
+                                                                        <button id="cmdCompassIn" class="compassbutton_in compassbutton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" type="button" title="in" onclick="compassClick(_compassDirs[10]);" role="button"><span class="ui-button-text">in</span></button>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <button id="cmdCompassD" class="compassbutton_down compassbutton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" type="button" title="down" onclick="compassClick(_compassDirs[9]);" role="button"><span class="ui-button-icon-primary ui-icon ui-icon-triangle-1-s"></span><span class="ui-button-text"></span></button>
+                                                                    </td>
+                                                                    <td>
+                                                                        <button id="cmdCompassOut" class="compassbutton_out compassbutton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" type="button" title="out" onclick="compassClick(_compassDirs[11]);" role="button"><span class="ui-button-text">out</span></button>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <h2 id="inventoryLabel" class="ui-accordion-header ui-helper-reset ui-state-active ui-corner-top">Inventory</h2>
+                                <div id="inventoryAccordion" class="ui-accordion-content-active ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom"><p id="inventoryEmpty" class="emptyListLabel"></p>
+                                    <ul class="elementList" id="inventoryList"></ul>
+                                    <div id="gameObjects" style="display: none"></div>
+                                </div>
+                                        <h2 id="placesObjectsLabel" class="ui-accordion-header ui-helper-reset ui-state-active ui-corner-top">Objects</h2>
+                                        <div id="placesObjectsAccordion" class="ui-accordion-content-active ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
+                                            <p id="placesObjectsEmpty" class="emptyListLabel"></p>
+                                            <ul class="elementList" id="objectsList"></ul>
+                                        </div>
+                                <h2 id="statusLabel" class="ui-accordion-header ui-helper-reset ui-state-active ui-corner-top">Status</h2>
+                                <div id="statusVars" class="ui-accordion-content-active ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom"></div>
+
                             </div>
                             <div id="gamePanesFinished">
                                 <h2>
-                                    Game Over</h2>
+                                    Game Over
+                                </h2>
                                 <p>
-                                    This game has finished.</p>
+                                    This game has finished.
+                                </p>
                             </div>
                         </div>
-                        <div id="gameObjects" style="display: none">
-                            <h2 id="placesObjectsLabel" class="paneHeader">$$TAB_OBJECTS$$</h2>
-                            <p id="placesObjectsEmpty" class="emptyListLabel">$$TEXT_NONE$$</p>
-                            <ul class="elementList" id="objectsList"></ul>
-                        </div>
-                        <div id="gameExits" style="display: none">
-                            <h2 id="compassLabel" class="paneHeader">$$TAB_EXITS$$</h2>
-                            <table id="compassTable" style="margin-left:auto; margin-right:auto;">
-                                <tr>
-                                    <td>
-                                        <table>
-                                            <tr>
-                                                <td>
-                                                    <input id="cmdCompassNW" class="compassbutton compassbutton_nw" type="button" title="go northwest"
-                                                           onclick="compassClick(_compassDirs[0]);" />
-                                                </td>
-                                                <td>
-                                                    <input id="cmdCompassN" class="compassbutton compassbutton_n" type="button" title="go north"
-                                                           onclick="compassClick(_compassDirs[1]);" />
-                                                </td>
-                                                <td>
-                                                    <input id="cmdCompassNE" class="compassbutton compassbutton_ne" type="button" title="go northeast"
-                                                           onclick="compassClick(_compassDirs[2]);" />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <input id="cmdCompassW" class="compassbutton compassbutton_w" type="button" title="go west"
-                                                           onclick="compassClick(_compassDirs[3]);" />
-                                                </td>
-                                                <td>
-                                                    &nbsp;
-                                                </td>
-                                                <td>
-                                                    <input id="cmdCompassE" class="compassbutton compassbutton_e" type="button" title="go east"
-                                                           onclick="compassClick(_compassDirs[4]);" />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <input id="cmdCompassSW" class="compassbutton compassbutton_sw" type="button" title="go southwest"
-                                                           onclick="compassClick(_compassDirs[5]);" />
-                                                </td>
-                                                <td>
-                                                    <input id="cmdCompassS" class="compassbutton compassbutton_s" type="button" title="go south"
-                                                           onclick="compassClick(_compassDirs[6]);" />
-                                                </td>
-                                                <td>
-                                                    <input id="cmdCompassSE" class="compassbutton compassbutton_se" type="button" title="go southeast"
-                                                           onclick="compassClick(_compassDirs[7]);" />
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                    <td>
-                                        <table>
-                                            <tr>
-                                                <td>
-                                                    <input id="cmdCompassU" class="compassbutton compassbutton_up" type="button" title="go up"
-                                                           onclick="compassClick(_compassDirs[8]);" />
-                                                </td>
-                                                <td>
-                                                    <input id="cmdCompassIn" class="compassbutton compassbutton_in" type="button" value="in" title="go in"
-                                                           onclick="compassClick(_compassDirs[10]);" />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <input id="cmdCompassD" class="compassbutton compassbutton_down" type="button" title="go down"
-                                                           onclick="compassClick(_compassDirs[9]);" />
-                                                </td>
-                                                <td>
-                                                    <input id="cmdCompassOut" class="compassbutton compassbutton_out" type="button" value="out" title="go out"
-                                                           onclick="compassClick(_compassDirs[11]);" />
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
+
+                        
+
                         <!--
                             //%%END TEXTADVENTURE PROFILE
                             -->
@@ -207,6 +216,7 @@
                                 -->
                                 <button class="btn" id="button-undo" type="button">$$BUTTON_UNDO$$</button>
                                 <button class="btn" id="button-wait" type="button">$$BUTTON_WAIT$$</button>
+                                <button class="btn" id="btn-options" onclick="$('#optionsContent').toggle();" type="button">Options</button>
                                 <!--
                                 //%%END TEXTADVENTURE PROFILE
                                 -->
@@ -221,19 +231,40 @@
 
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="gameMoreAbout">
-                                        <p><i>$$GAMENAME$$</i> (version $$VERSION$$, build $$BUILD$$)</p>
-                                        <p>Written by $$AUTHOR$$ using <a onclick="extLink('http://textadventures.co.uk/quest/?src=app$$PRODUCTID$$')" href='#'>Quest</a>.</p>
-                                        <p><small>Copyright &copy; 2013 $$AUTHOR$$ / Text Adventures Ltd</small></p>
-                                        <p><a class="btn btn-small" href="mailto:apphelp@textadventures.co.uk?subject=Problem with $$GAMENAME$$ ($$VERSION$$-$$BUILD$$[$$PROFILE$$])">Report a problem</a></p>
+                                        <p><center><i>$$GAMENAME$$</i> (version $$VERSION$$, build $$BUILD$$)</center></p>
+                                        <a id="cover-art" style="display:none;" href="" target="_blank"><img id='cover-pic' width="25%" src="images/quest.png" /></a><hr />
+                                        <p>Written by $$AUTHOR$$ using <a onclick="extLink('http://textadventures.co.uk/quest/')" href='#'>Quest</a>.</p>
+                                        <p><small>Copyright &copy; 2018 $$AUTHOR$$ / Text Adventures Ltd</small></p>
+                                        <p id="contact-div" style="display:none;"><a id="contact-link" class="btn btn-small" href="mailto:$$YOUREMAILADDRESS$$?subject=Problem with $$GAMENAME$$ ($$VERSION$$-$$BUILD$$[$$PROFILE$$])">Report a problem</a></p>
+
+                                        <div id="optionsContent">
+                                            <hr />
+                                            <h4>Options</h4>
+                                            <!--<p>
+            Font:
+            <select id="fontOptions" class="optionsList">
+            </select>
+        </p>-->
+                                            <p>
+                                                Font size:
+                                                <select id="fontSize" class="optionsList">
+                                                    <option value="11">Small</option>
+                                                    <option value="14">Large</option>
+                                                    <option value="18">Very large</option>
+                                                </select>
+                                            </p>
+                                            <p id="fontSample">Sample Text</p>
+                                            <p><button id="button-close-options" onclick="$('#optionsContent').hide();" type="button">Close</button></p>
+                                        </div>
                                     </div>
 
                                     <div class="tab-pane" id="gameMoreGames" style="text-align: center">
-                                        <p style="margin:0;padding:0"><a class="btn btn-success btn-large" onclick="extLink('http://textadventures.co.uk/?src=app$$PRODUCTID$$')" href="#"><i class="icon-play icon-white"></i> Play more games online</a></p>
-                                        <p style="margin-top:12px;padding:0"><a onclick="extLink('http://textadventures.co.uk/?src=app$$PRODUCTID$$')" href="#"><img src="images/ta-logo.png" width="300px" /></a></p>
+                                        <p style="margin:0;padding:0"><a class="btn btn-success btn-large" onclick="extLink('http://textadventures.co.uk/')" href="#"><i class="icon-play icon-white"></i> Play more games online</a></p>
+                                        <p style="margin-top:12px;padding:0"><a onclick="extLink('http://textadventures.co.uk/')" href="#"><img src="images/ta-logo.png" width="300px" /></a></p>
                                     </div>
                                     <div class="tab-pane" id="gameMoreCreate" style="text-align: center">
-                                        <p style="margin:0;padding:0"><a onclick="extLink('http://textadventures.co.uk/quest/?src=app$$PRODUCTID$$')" href="#"><img src="images/quest.png" width="200px" /></a></p>
-                                        <p style="margin-top:12px;padding:0"><a class="btn btn-primary btn-large" onclick="extLink('http://textadventures.co.uk/quest/?src=app$$PRODUCTID$$-create')" href="#"><i class="icon-pencil icon-white"></i> Write your own game</a></p>
+                                        <p style="margin:0;padding:0"><a onclick="extLink('http://textadventures.co.uk/quest/')" href="#"><img src="images/quest.png" width="200px" /></a></p>
+                                        <p style="margin-top:12px;padding:0"><a class="btn btn-primary btn-large" onclick="extLink('http://textadventures.co.uk/quest/')" href="#"><i class="icon-pencil icon-white"></i> Write your own game</a></p>
                                     </div>
                                 </div>
                             </div>
@@ -242,27 +273,13 @@
                             </div>
                         </div>
                         <div id="gameOptions" style="display: none">
-                            <h2 id="optionsLabel" class="paneHeader">Options</h2>
-                            <div id="optionsContent">
-                                <p>
-                                    Font:
-                                    <select id="fontOptions" class="optionsList">
-                                    </select>
-                                </p>
-                                <p>
-                                    Font size:
-                                    <select id="fontSize" class="optionsList">
-                                        <option value="11">Small</option>
-                                        <option value="14">Large</option>
-                                        <option value="18">Very large</option>
-                                    </select>
-                                </p>
-                                <p id="fontSample">Sample Text</p>
-                                <p><button id="button-close-options" type="button">Close</button></p>
-                            </div>
+
                         </div>
                         <div id="gameContent">
                             <div id="divOutput">
+                            </div>
+                            <div id="sound-div" style="display:none;">
+                                <audio id="audio-div" src=""/>
                             </div>
                             <div id="divCommand">
                                 <table id="inputBar">

@@ -395,6 +395,10 @@ namespace TextAdventures.Quest
 
             public override void Load(Element element, string attribute, string value)
             {
+                if (value == "key")
+                {
+                    value = "key ";
+                }
                 element.Fields.AddObjectRef(attribute, value);
             }
         }

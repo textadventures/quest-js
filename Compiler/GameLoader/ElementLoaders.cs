@@ -419,7 +419,10 @@ namespace TextAdventures.Quest
                             type = "boolean";
                         }
                     }
-
+                    if (attribute == "gridmap")
+                    {
+                        attribute = "false";
+                    }
                     if (GameLoader.AttributeLoaders.ContainsKey(type))
                     {
                         GameLoader.AttributeLoaders[type].Load(current, attribute, value);
@@ -575,7 +578,10 @@ namespace TextAdventures.Quest
                     RaiseError("Expected 'name' attribute in template");
                     return null;
                 }
-
+                if (t.StartsWith("DevModeDescription"))
+                {
+                    text = text.Replace("\"", "&quot;");
+                }
                 return ElementFactory.CreateTemplate(t, text, isCommandTemplate);
             }
         }

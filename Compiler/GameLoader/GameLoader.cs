@@ -14,6 +14,7 @@ namespace TextAdventures.Quest
         v530,
         v540,
         v550,
+        v580
     }
 
     public partial class GameLoader
@@ -59,6 +60,7 @@ namespace TextAdventures.Quest
             {"530", WorldModelVersion.v530},
             {"540", WorldModelVersion.v540},
             {"550", WorldModelVersion.v550},
+            {"580", WorldModelVersion.v580},
         };
 
         public GameLoader()
@@ -73,6 +75,10 @@ namespace TextAdventures.Quest
 
         public void AddElement(Element element)
         {
+            if (element.Name == "key")
+            {
+                element.Name = "key ";
+            }
             m_elements.Add(element.Name, element);
         }
 

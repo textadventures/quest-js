@@ -7,7 +7,7 @@ body
 {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0px;
-    background: $$BACKGROUND$$;
+    background: White;
 }
 a.cmdlink
 {
@@ -30,20 +30,16 @@ div#gameBorder
     margin-left: auto;
     margin-right: auto;
     margin-top: 0;
+    min-height:100%;
+
 }
-div#gamePanes
-{
-    padding-bottom: 10px;
-    background: white;
-}
+
 div#status
 {
     background: #E0E0FF;
     height: 20px;
-    position: fixed;
-    top: 0px;
+
     z-index: 100;
-    width: 100%;
     margin-left: auto;
     margin-right: auto;
     font-size: 14pt;
@@ -57,17 +53,7 @@ div#status
 {
     display: none;
 }
-.compassbutton
-{
-    margin-right: 0;
-    width: 50px;
-    height: 50px;
-    background-color: transparent;
-    background-repeat: no-repeat;
-    cursor: pointer;
-    vertical-align: middle;
-    background-position:center;
-}
+
 #statusVars
 {
     display: none;
@@ -88,12 +74,9 @@ div#divOutput
 {
     padding: 4px;
     margin: 0px;
+
 }
-#compassTable
-{
-    padding-top: 60px;
-    padding-bottom: 60px;
-}
+
 #txtCommand
 {
     width: 100%;
@@ -102,14 +85,10 @@ div#divOutput
     height: inherit;
 }
 div#gameObjects
-{
-    padding-bottom: 10px;
+{   
     background: white;
 }
-div#gameExits
-{
-    background: white;
-}
+
 div#gameMore
 {
     background: white;
@@ -127,17 +106,19 @@ ul.elementList
 {
     list-style: none;
     padding: 0;
-    border: 1px solid #ccc;
-    margin: 0px 16px 16px 16px;
+    border: none;
+    margin: 2px 6px 6px 6px;
+	height:100%;
+	max-height:inherit;
 }
 ul.elementList li
 {
     display: block;
     font-family: Helvetica, Arial, sans-serif;
     font-weight: bold;
-    background-image: -webkit-gradient(linear,left top,left bottom,from(#fdfdfd),to(#eee));
+    /*background-image: -webkit-gradient(linear,left top,left bottom,from(#fdfdfd),to(#eee));*/
     border-bottom: 1px solid #ccc;
-    padding: 10px 10px 10px 20px;
+    padding: 4px 4px 4px 8px;
 }
 li.elementListHover
 {
@@ -155,7 +136,7 @@ h2.paneHeader
     background: black;
     display: block;
     margin: 0px 0px 10px 0px;
-    padding: 10px;
+    padding: 4px;
 }
 div#aboutContent
 {
@@ -178,7 +159,7 @@ div#tabButton
 }
 table#inputBar
 {
-    width: 100%;
+    width: 90%;
 }
 td#inputBarButtons
 {
@@ -189,3 +170,60 @@ input[type="text"] {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
+#gameContent {
+    margin-left: auto;
+	margin-right:auto;
+	width:70%;
+    min-height:100%;
+    padding:12px;
+}
+#gamePanes
+{
+position: fixed;
+right:1%;
+padding-bottom: 10px;
+background: white;
+max-width:20%;
+}
+.compassbutton
+{
+
+    margin-right: 0;
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    vertical-align: middle;
+    background-position:center;
+
+}
+#compassTable .ui-button
+{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px !important;
+    border: 2px solid #C5DBEC;
+}
+#compassTable .ui-button-disabled
+{
+    border: 1px solid #C5DBEC;
+    background: inherit;
+}
+.ui-accordion-header {
+    background:black !important;
+    border: 1px solid gray !important;
+    padding: 3px !important;
+}
+.ui-accordion-content {
+    border: 1px solid gray !important;
+}
+@media only screen and (max-width: 1000px) {
+    #gameContent{width: 100%; margin:0;}
+    #gamePanes{display: none !important;}
+}
+
+#placesObjectsAccordion, #inventoryAccordion {
+	max-height:150px;
+	overflow-y:scroll;
+}
+
